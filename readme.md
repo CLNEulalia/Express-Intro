@@ -3,12 +3,11 @@
 ## Learning Objectives
 
 - Compare and contrast JavaScript in the browser vs on the server
-- Compare and contrast Express to Rails and Sinatra
 - Use `npm` to manage project dependencies
 - Use `module.exports` and `require` to organize code
+- Build a server-side application with Express
 - Use Handlebars templates to simplify rendering in Express
 - Use and configure middleware (e.g. body-parser to handle form submissions)
-- Link to static assets in an Express application
 
 ## Framing
 > 5 minutes / 0:05
@@ -91,7 +90,11 @@ Express' minimalism comes with some trade-offs. On the one hand, Express feels "
 
 Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give it's developer more structure.
 
-At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers four key features: routing, subapplications, middleware and some other conveniences.
+At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers four key features:
+1. Routing
+2. Subapplications
+3. Middleware
+4. Conveniences
 
 ## We Do: Hello World with Express
 > 15 minutes / 0:40

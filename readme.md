@@ -60,19 +60,19 @@ Check your `package.json` file after the command finishes running:
 	<summary>What changed, if anything?</summary>
 	
 	There should now be a `dependencies` object with `reverse-string` in it.
-</details
+</details>
 
 <details>
 	<summary>Where did the package come from?</summary>
 	
 	Packages installed and managed with NPM generally come from the [NPM Registry](https://www.npmjs.com), a registry of third-party packages that you can install and use in your projects.
-</details
+</details>
 
 <details>
 	<summary>Where was the package downloaded?</summary>
 	
 	Packages managed by NPM are installed in a `node_modules/` directory. NPM will create this directory for you if there isn't already one present.
-</details
+</details>
 
 ### Using Third-party packages
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.

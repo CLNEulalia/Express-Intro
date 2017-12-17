@@ -10,6 +10,7 @@
 - Use and configure middleware (e.g. body-parser to handle form submissions)
 
 ## Framing
+
 > 5 minutes / 0:05
 
 Let's think about the JavaScript we've written for project 1:
@@ -32,6 +33,7 @@ This lesson introduces two new tools: Node and Express
 The JavaScript we write today is the same JavaScript we've come to know and love; it's the environment that's different. The JavaScript we wrote previously was for browsers and the client. The JavaScript we're writing today will be run by Node on our laptops simulating a server.
 
 ## We Do: Setting up a Node Project
+
 > 15 minutes / 0:20
 
 Run `node` in your terminal. Doing so will pop you in to a JavaScript REPL (Read-Eval-Print-Loop) in Node. The REPL allows us to run JavaScript from our terminal.
@@ -60,9 +62,9 @@ In Node, the global object is `process`. If you try to log `window`, Node assume
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
 >1. Run `npm init` in your `intro-to-node/` directory from before. 
->2. You'll be asked a series of questions which will generate a `package.json` file. When it's finished, you'll be ready to build out your project and include third party code!
+>2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
 
-- What is a `package.json` file?
+What is a `package.json` file?
 
 To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. `npm install` will download the package and update your `package.json` file.
 
@@ -91,13 +93,17 @@ Check your `package.json` file after the command finishes running:
 </details>
 
 ### Using Third-party packages
+
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
 
-Switch back to your `index.js` file and add `const reverse = require('reverse-string');` to the very top of the file. Then add `console.log(reverse('hello world'));` below your `require()` statement. If you run the file with Node, you should get `dlrow olleh` logged in your terminal.
+>1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file. 
+>2. Add `console.log(reverse('hello world'))` below your `require()` statement. If you 
+>3. Run the file with Node: `node index.js` 
 
 We've covered running JavaScript files with Node, installing third-party libraries with NPM and then using those libraries in your own JavaScript. Next, we'll cover all of this again but with Express, a web framework for Node.
 
 ## Introducing Express
+
 > 5 minutes / 0:25
 
 Express is a minimalistic web framework. Compared to web frameworks like Django and Ruby on Rails, Express is tiny. But it was intentionally designed that way. Throughout Express' history and development, the core of the web framework has gotten smaller as more and more functionality is spun-off into separate packages.

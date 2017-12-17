@@ -73,7 +73,9 @@ To install and include a package that someone else wrote in your project, you'll
 
 Lets install the [reverse-string](https://www.npmjs.com/package/reverse-string) package:
 
->run `npm install reverse-string` in your terminal
+```bash
+$ npm install reverse-string
+```
 
 Check your `package.json` file after the command finishes running:
 
@@ -106,9 +108,13 @@ const reverse = require('reverse-string')
 console.log(reverse('hello world'))
 ```
 
-Run the file with Node: `node index.js`
+Run the file with Node:
 
-- What was logged? How did we do it?
+```bash
+$ node index.js
+```
+
+What was logged? How did we do it?
 
 We've covered running JavaScript files with Node, installing third-party libraries with NPM and then using those libraries in your own JavaScript. Next, we'll cover all of this again but with Express, a web framework for Node.
 
@@ -152,7 +158,9 @@ $ npm init -y
 
 The next thing we need to do is install the Express module:
 
-> npm install express
+```bash
+$ npm install express
+```
 
 We can see in our `package.json` that the default main file for a node app is `index.js`. We could change this, but we'll use the default for now.
 
@@ -262,39 +270,6 @@ hello bob
 
 > 10 minutes / 1:20
 
-<!-- ## Subapplications
-
-> 15 minutes / 1:35
-
-Subapplications in Express are very closely related to the idea of Controllers from MVC. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
-
-Inside our Express app, lets create a `controllers/` directory and a `bottles.js` file inside of it.
-
-In Node, to separate code across multiple files, we'll use `require()` and `module.exports`. If we want to export something from one file, we'll add it to the `module.exports` object or use it to overwrite the `module.exports` object.
-
-Lets build out our `bottles/` subapplication inside of `bottles.js`:
-
-```
-const express = require('express');
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.send('bottles');
-});
-
-module.exports = router;
-```
-
-By assigning our `router` to `module.exports`, we're exporting the `router` object. We can import it in another file with `require()`. Back in our `index.js`:
-
-```
-const bottlesController = require('./controllers/bottles.js');
-
-app.use('/bottles', bottlesController);
-```
-
-Now any route that we add to our `router` inside of `controllers/bottles.js` will be available to us under the URL `/bottles`! -->
-
 ## You Do: 99 Bottle of Beer
 
 > 15 minutes / 1:50
@@ -389,16 +364,16 @@ We need a route and a view with a form:
 
 ```js
 app.get("/", (req, res) => {
-  res.render("bottles/welcome")
+  res.render("welcome")
 })
 ```
 
 ```html
-<!-- views/bottles/welcome.hbs -->
+<!-- views/welcome.hbs -->
 <h1>Welcome to 99 Bottles</h1>
-<form action="/bottles" method="post">
+<form action="/" method="post">
   <label for="player_name">Please enter your name</label>
-  <input id="player_name" type="text" name="playerName">
+  <input id="player_name" type="text" name="player_name">
   <input type="submit">
 </form>
 ```
@@ -434,6 +409,7 @@ It's an empty object!
 Our HTML form information is not in `req.params`. That's because Express is not handling information posted from a form. We need to install middleware – code that runs in between receiving the request and sending the response – in order to get form or JSON data in a POST request. Rails and Sinatra already include the middleware to handle this. Express by default does not, so we need to install it manually.
 
 ### You Do: `body-parser` Walkthrough
+
 > 10 minutes
 
 The middleware we will install is called **body-parser**. It used to be included to Express by default, but was removed and made in to it's own module to make Express more minimal.
@@ -441,7 +417,7 @@ The middleware we will install is called **body-parser**. It used to be included
 In the terminal:
 
 ```bash
-$ npm install --save body-parser
+$ npm install body-parser
 ```
 
 In `index.js`:
@@ -463,11 +439,11 @@ The JSON bodyparser is necessary if we want to handle AJAX requests with JSON bo
 
 Another thing to note is that, in Express, `req.params` holds just path params. Anything handled by the bodyParser (JSON or form bodies) will be held in `req.body`.
 
-So we change the final post request in `bottles.js` to:
+So we change the final post request in `index.js` to:
 
 ```js
 app.post("/", (req, res) => {
-  res.send(`hello ${req.body.playerName}`)
+  res.send(`hello ${req.body.player_name}`)
 })
 ```
 
@@ -492,14 +468,17 @@ And to our view:
 ```
 
 Be prepared to answer the following questions after completing this walkthrough:
+
 - What is the purpose of `body-parser`?
 - What is the difference between `bodyParser.urlencoded` and `bodyParser.json`?
 - How do we go about accessing values sent through a form in Express?
 
 ## Closing
-Express is a minimal and flexible web framework for building web applications with Node. Later on, we'll see how we can integrate Express with a database to persist data. Once we do, we'll be able to build applications using Express just like the ones we built using Rails and Sinatra.
+Express is a minimal and flexible web framework for building web applications with Node. Later on, we'll see how we can integrate Express with a database to persist data.
 
-Remember that there are four key features of Express: routing, subapplications, middleware and some other conveniences. Can you explain what each does? What are some of the conveniences that Express provides?
+Today we have reviewd two key features of Express: routing and middleware. Express has other convenient features that make server-side Javascript more simple. Explore Express.js docs [here](http://expressjs.com/) Express also makes it possible to create subapplications which can be handy as we scale to larger projects. You can learn more in the bonus section below. 
+
+
 
 ## You Do: Emergency Compliment (Homework)
 
@@ -507,3 +486,35 @@ Remember that there are four key features of Express: routing, subapplications, 
 
 > Looking at the [Sinatra solution](https://github.com/ga-dc/emergency_compliment/tree/solution) for this assignment might be helpful.
 
+## Bonus: Subapplications
+
+> 15 minutes / 1:35
+
+Subapplications in Express are very closely related to the idea of Controllers from MVC. Subapplications provide a modular approach to building large applications. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
+
+Inside our Express app, lets create a `controllers/` directory and a `bottles.js` file inside of it.
+
+In Node, to separate code across multiple files, we'll use `require()` and `module.exports`. If we want to export something from one file, we'll add it to the `module.exports` object or use it to overwrite the `module.exports` object.
+
+Lets build out our `bottles/` subapplication inside of `bottles.js`:
+
+```
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.send('bottles');
+});
+
+module.exports = router;
+```
+
+By assigning our `router` to `module.exports`, we're exporting the `router` object. We can import it in another file with `require()`. Back in our `index.js`:
+
+```
+const bottlesController = require('./controllers/bottles.js');
+
+app.use('/bottles', bottlesController);
+```
+
+Now any route that we add to our `router` inside of `controllers/bottles.js` will be available to us under the URL `/bottles`!

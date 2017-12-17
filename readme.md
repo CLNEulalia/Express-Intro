@@ -128,12 +128,11 @@ Express' minimalism comes with some trade-offs. On the one hand, Express feels "
 
 Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give it's developer more structure.
 
-At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers four key features:
+At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers a few convenient features:
 
 - Routing
 - Middleware
-- Conveniences
-- Subapplications
+- Subapplications (bonus)
 
 ## We Do: Hello World with Express
 
@@ -272,7 +271,7 @@ hello bob
 
 ## You Do: 99 Bottle of Beer
 
-> 15 minutes / 1:50
+> 15 minutes / 1:35
 
 The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/99_bottles_express).
 
@@ -280,7 +279,7 @@ The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/9
 
 ## Views
 
-> 20 minutes /  2:10
+> 20 minutes /  1:55
 
 Let's leverage our [solution to 99 Bottles of
 Beer](https://github.com/ga-dc/99_bottles_express/tree/solution) to learn about views.
@@ -291,7 +290,11 @@ Handlebars is a light-weight tool, and it is simple in its functionality. It's u
 
 Handlebars is not the only templating engine we can use. [There are many others](https://github.com/expressjs/express/wiki#template-engines).
 
-> Install Handlebars as a project dependency: `npm install hbs`
+Install Handlebars as a project dependency: `
+
+```bash
+$ npm install hbs
+```
 
 In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/using-template-engines.html) to use Handlebars as its "view engine":
 
@@ -356,7 +359,7 @@ Finally we should update our index view to reflect the same strings we had befor
 
 ## Middleware
 
-> 20 minutes / 2:30
+> 20 minutes / 2:15
 
 Let's personalize our 99 bottles app.  We'll make a welcome page with a form asking for user's name.
 
@@ -410,7 +413,7 @@ Our HTML form information is not in `req.params`. That's because Express is not 
 
 ### You Do: `body-parser` Walkthrough
 
-> 10 minutes
+> 10 minutes / 2:25
 
 The middleware we will install is called **body-parser**. It used to be included to Express by default, but was removed and made in to it's own module to make Express more minimal.
 
@@ -474,9 +477,12 @@ Be prepared to answer the following questions after completing this walkthrough:
 - How do we go about accessing values sent through a form in Express?
 
 ## Closing
+
+> 5 minutes / 2:30
+
 Express is a minimal and flexible web framework for building web applications with Node. Later on, we'll see how we can integrate Express with a database to persist data.
 
-Today we have reviewd two key features of Express: routing and middleware. Express has other convenient features that make server-side Javascript more simple. Explore Express.js docs [here](http://expressjs.com/) Express also makes it possible to create subapplications which can be handy as we scale to larger projects. You can learn more in the bonus section below. 
+Today we have reviewed two key features of Express: routing and middleware. Express has other convenient features that make server-side Javascript more simple. Explore Express.js docs [here](http://expressjs.com/) Express also makes it possible to create subapplications which can be handy as we scale to larger projects. You can learn more in the bonus section below.
 
 
 
@@ -484,13 +490,9 @@ Today we have reviewd two key features of Express: routing and middleware. Expre
 
 [Emergency Compliment](https://github.com/ga-dc/compliment-express)
 
-> Looking at the [Sinatra solution](https://github.com/ga-dc/emergency_compliment/tree/solution) for this assignment might be helpful.
-
 ## Bonus: Subapplications
 
-> 15 minutes / 1:35
-
-Subapplications in Express are very closely related to the idea of Controllers from MVC. Subapplications provide a modular approach to building large applications. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
+As our applications get larger, we will need more and more routes. Storing all of these routes in the same .js file can become confusing and difficult to manage. Subapplications in express provide a modular approach to building large applications. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
 
 Inside our Express app, lets create a `controllers/` directory and a `bottles.js` file inside of it.
 

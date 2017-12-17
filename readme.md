@@ -96,9 +96,14 @@ Check your `package.json` file after the command finishes running:
 
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
 
-> 1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file
-> 2. Add `console.log(reverse('hello world'))` below your `require()` statement.
-> 3. Run the file with Node: `node index.js`
+At the top of your `index.js` file, use require to import the reverse package and use the reverse() method to test that the package is imported.
+
+```js
+const reverse = require('reverse-string')
+console.log(reverse('hello world'))
+```
+
+> Run the file with Node: `node index.js`
 
 - What was logged? How did we do it?
 
@@ -129,7 +134,7 @@ Let's jump right into creating a simple "Hello World" Express application as we 
 
 > 1. Create a new directory in your sandbox: `mkdir hello-express`
 > 2. enter the new directory: `cd hello-express`
-> 3. create a `package.json file`: `npm init -y`
+> 3. create a `package.json` file: `npm init -y`
 
 <details>
   <summary>What does `npm init -y` do?</summary>
@@ -289,7 +294,7 @@ Now any route that we add to our `router` inside of `controllers/bottles.js` wil
 
 The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/99_bottles_express).
 
-**Hint**: you can send HTML elements in your response
+**Hint**: you can send HTML elements in your GET response
 
 ## Views
 
@@ -298,15 +303,13 @@ The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/9
 Let's leverage our [solution to 99 Bottles of
 Beer](https://github.com/ga-dc/99_bottles_express/tree/solution) to learn about views.
 
-Handlebars is a JavaScript module for templating. Handlebars templates are very similar to the `.erb` files we used in Sinatra and Rails in that we use code to augment our HTML.
+Handlebars is a JavaScript module for templating. Handlebars, a templating language, allows us to write a simple front-end within the same application as our server. We will create a template that can change depending on the responses sent from our server. Fortunately, handlebars looks a lot like HTML!
+
+Handlebars is a light-weight tool, and it is simple in its functionality. It's useful for building small applications very quickly, however it is limited by its simplicity. In the coming weeks we will transition to React.js, a more powerful front-end framework, to build more complex and dynamic applications.
 
 Handlebars is not the only templating engine we can use. [There are many others](https://github.com/expressjs/express/wiki#template-engines).
 
-Install Handlebars as a project dependency:
-
-```bash
-$ npm install --save hbs
-```
+> Install Handlebars as a project dependency: `npm install hbs`
 
 In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/using-template-engines.html) to use Handlebars as its "view engine":
 

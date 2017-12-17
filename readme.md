@@ -27,8 +27,8 @@ What about the server we built from scratch?
 
 This lesson introduces two new tools: Node and Express
 
-* **Node** is a JavaScript runtime used to build Server-side applications
-* **Express** is an un-opinionated web development framework, written in Node.
+- **Node** is a JavaScript runtime used to build Server-side applications
+- **Express** is an un-opinionated web development framework, written in Node.
 
 The JavaScript we write today is the same JavaScript we've come to know and love; it's the environment that's different. The JavaScript we wrote previously was for browsers and the client. The JavaScript we're writing today will be run by Node on our laptops simulating a server.
 
@@ -44,12 +44,10 @@ The way we set up JavaScript projects for Node is a little different from how we
 
 Lets get started!
 
-```
-1. Create a new directory in our Sandbox called `intro-to-node/`
-2. Create an `index.js` file inside of it
-3. Open the file in your text editor and add `console.log('hello node')` to the first line.
-4. Run `node index.js` in the terminal to run the file
-```
+> 1. Create a new directory in our Sandbox called `intro-to-node/`
+> 2. Create an `index.js` file inside of it
+> 3. Open the file in your text editor and add `console.log('hello node')` to the first line.
+> 4. Run `node index.js` in the terminal to run the file
 
 You just executed JavaScript with Node!
 
@@ -63,10 +61,8 @@ In Node, the global object is `process`. If you try to log `window`, Node assume
 
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
-```
-1. Run `npm init` in your `intro-to-node/` directory from before. 
-2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
-```
+> 1. Run `npm init` in your `intro-to-node/` directory from before. 
+> 2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
 
 - What is a `package.json` file?
 
@@ -100,11 +96,9 @@ Check your `package.json` file after the command finishes running:
 
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
 
-```
-1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file. 
-2. Add `console.log(reverse('hello world'))` below your `require()` statement. If you 
-3. Run the file with Node: `node index.js` 
-```
+> 1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file
+> 2. Add `console.log(reverse('hello world'))` below your `require()` statement.
+> 3. Run the file with Node: `node index.js`
 
 - What was logged? How did we do it?
 
@@ -128,15 +122,14 @@ At it's core, Express is meant to be a very light abstraction over the native No
 - Subapplications
 
 ## We Do: Hello World with Express
+
 > 15 minutes / 0:40
 
 Let's jump right into creating a simple "Hello World" Express application as we explore these four key features.
 
-```bash
-$ mkdir hello-express
-$ cd hello-express
-$ npm init -y
-```
+> 1. Create a new directory in your sandbox: `mkdir hello-express`
+> 2. enter the new directory: `cd hello-express`
+> 3. create a `package.json file`: `npm init -y`
 
 <details>
   <summary>What does `npm init -y` do?</summary>
@@ -147,11 +140,7 @@ $ npm init -y
 
 The next thing we need to do is install the Express module:
 
-```bash
-$ npm install --save express
-```
-
-> the `--save` flag updates your `package.json` file with your new dependency. We could manually edit the `package.json` file but conventionally we use the CLI tool.
+> npm install express
 
 We can see in our `package.json` that the default main file for a node app is `index.js`. We could change this, but we'll use the default for now.
 
@@ -167,11 +156,12 @@ app.listen(4000, () => {
 ```
 
 What's going on here?
+
 - we're requiring the Express module, which is a function that returns an instance of a web app
 - we're invoking the module, instantiating a constant `app` which holds all the methods and state we use to write and run our web app
 - we're starting our server (and app) by listening on port 4000 for incoming requests
 
-When we run the application – `$ node index.js` – we can see `app listening on port 4000` printed to the terminal. The process continues to run, occupying the shell until we hit `ctrl + c`, just like pervious servers we have run.
+When we run the application from the terminal `node index.js`, we can see `app listening on port 4000` printed to the terminal. The process continues to run, occupying the shell until we hit `ctrl + c`, just like pervious servers we have run.
 
 If we visit `http://localhost:4000` in the browser, we'll see something like this:
 
@@ -182,6 +172,7 @@ Cannot GET /
 Our app is running and we're able to visit it in the browser. But we're missing routes!
 
 ### Routing
+
 > 10 minutes / 0:50
 
 The first key feature that Express provides is simple and easy routing.
@@ -191,12 +182,10 @@ A *route* is a path and an HTTP verb. Express contains a method for each HTTP ve
 Let's update `index.js`. Add this above `app.listen()`:
 
 ```js
-app.get("/", (request, response, next) => {
+app.get("/", (request, response) => {
   response.send("Hello World")
 })
 ```
-
-We'll explore the `next()` function later when we talk about middleware.
 
 We've added a route and a handler for requests to the "/" route. In this case, we're sending the string `"hello world"` as the response. Let's see if this takes effect in the browser:
 
@@ -210,34 +199,34 @@ No change. The running server won't change until we restart it  and refresh the 
 Hello World
 ```
 
-Constantly needing to restart the server will get very tedious, very quickly. Instead, we can use the `nodemon` module to run our server. The `nodemon` node module (a portmanteau of "node monitor") performs a similar task to `sinatra/reloader` but goes about it slightly differently. Instead of requiring `nodemon` in our code, we use `nodemon` from the command line. Then, `nodemon` will restart our server for us whenever a file is changed
+Constantly needing to restart the server will get very tedious, very quickly. Instead, we can use the `nodemon` module to run our server. Instead of requiring `nodemon` in our code, we use `nodemon` from the command line. Then, `nodemon` will restart our server for us whenever a file is changed
 
-In the terminal, run:
+**If you do not already have nodemon installed**
 
-```bash
-$ npm install --global nodemon
-```
+> In the terminal, run: `npm install --global nodemon`
 
 > When using the `--global` flag (or `-g` for short), we're specifying that `nodemon` will be installed "globally" so we can utilize `nodemon` across all of our node applications (and also that it is not included in our project dependencies).
 
-We start up our application a bit differently now. In the terminal, run:
+We start up our application a bit differently now. 
 
-```bash
-$ nodemon index.js
-```
+> In the terminal, run: `nodemon index.js`
 
 ### Turn and Talk
+
 > 10 minutes / 1:00
 
-Let's take a second to compare this `GET '/'` handler in express to [how we would write a handler in Sinatra](https://github.com/ga-wdi-exercises/emergency_compliment/blob/solution/server.rb#L14-L19).
+Take a few minutes to walk through our code with a neighbor. Make sure you understand the purpose of each line of code. Reach out to other neighbors for clarification.
 
-* What is different between the route we just defined in Express and the one we defined in Sinatra?
-* What is similar?
+Compare your express server with server we built from scratch.
+
+- What is similar?
+- What is different?
 
 ### Params in Express
+
 > 10 minutes / 1:10
 
-Remember `params` in Sinatra and Rails? Implementing route params in Express is very similar!
+Route parameters give us flexibility when writing routes in express.
 
 Let's update `index.js` to include...
 
@@ -247,6 +236,10 @@ app.get("/:name", (req, res) => {
 })
 ```
 
+- Our route has changed! What is different?
+
+Route parameters are named sections of our path, they are placeholders that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
+
 Now if we visit `http://localhost:4000/bob`, we should see:
 
 ```
@@ -254,9 +247,11 @@ hello bob
 ```
 
 ## Break
+
 > 10 minutes / 1:20
 
-## Subapplications
+<!-- ## Subapplications
+
 > 15 minutes / 1:35
 
 Subapplications in Express are very closely related to the idea of Controllers from MVC. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
@@ -286,14 +281,18 @@ const bottlesController = require('./controllers/bottles.js');
 app.use('/bottles', bottlesController);
 ```
 
-Now any route that we add to our `router` inside of `controllers/bottles.js` will be available to us under the URL `/bottles`!
+Now any route that we add to our `router` inside of `controllers/bottles.js` will be available to us under the URL `/bottles`! -->
 
 ## You Do: 99 Bottle of Beer
+
 > 15 minutes / 1:50
 
 The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/99_bottles_express).
 
+**Hint**: you can send HTML elements in your response
+
 ## Views
+
 > 20 minutes /  2:10
 
 Let's leverage our [solution to 99 Bottles of
@@ -371,6 +370,7 @@ Finally we should update our index view to reflect the same strings we had befor
 > This syntax for the conditional statement is a [built-in helper from Handlebars](http://handlebarsjs.com/block_helpers.html).
 
 ## Middleware
+
 > 20 minutes / 2:30
 
 Let's personalize our 99 bottles app.  We'll make a welcome page with a form asking for user's name.

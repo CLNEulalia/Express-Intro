@@ -61,8 +61,11 @@ In Node, the global object is `process`. If you try to log `window`, Node assume
 
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
-> 1. Run `npm init` in your `intro-to-node/` directory from before. 
-> 2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
+Create a `package.json` file in the `intro-to-node` directory, Then answer or skip (enter) the prompted questions.
+
+```bash
+$ npm init
+```
 
 - What is a `package.json` file?
 
@@ -96,14 +99,14 @@ Check your `package.json` file after the command finishes running:
 
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
 
-At the top of your `index.js` file, use require to import the reverse package and use the reverse() method to test that the package is imported.
+At the top of your `index.js` file, use `require()` to import the `reverse-string` package and use the `reverse()` method to test that the package is imported.
 
 ```js
 const reverse = require('reverse-string')
 console.log(reverse('hello world'))
 ```
 
-> Run the file with Node: `node index.js`
+Run the file with Node: `node index.js`
 
 - What was logged? How did we do it?
 
@@ -132,9 +135,13 @@ At it's core, Express is meant to be a very light abstraction over the native No
 
 Let's jump right into creating a simple "Hello World" Express application as we explore these four key features.
 
-> 1. Create a new directory in your sandbox: `mkdir hello-express`
-> 2. enter the new directory: `cd hello-express`
-> 3. create a `package.json` file: `npm init -y`
+Create and enter a new directory `hello-express` in your sandbox. Then, create a `package.json` file using npm.
+
+```bash
+$ mkdir hello-express
+$ cd hello-express
+$ npm init -y
+```
 
 <details>
   <summary>What does `npm init -y` do?</summary>
@@ -317,8 +324,7 @@ In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/
 app.set("view engine", "hbs")
 ```
 
-Let's go ahead and create a directory that will contain our templates in the root directory of
-the Express 99 Bottles application. In the terminal:
+Let's go ahead and create a directory that will contain our templates in the root directory of the Express 99 Bottles application. In the terminal:
 
 ```bash
 $ mkdir views
@@ -326,7 +332,7 @@ $ touch views/index.hbs
 $ touch views/layout.hbs
 ```
 
-Let's change up our existing `bottles.js` to utilize a template rather than sending in a string directly. In `bottles.js`:
+Let's change up our existing `index.js` to utilize a template rather than sending in a string directly. In `bottles.js`:
 
 ```js
 app.get("/:numberOfBottles?", ( req, res ) => {
@@ -338,6 +344,7 @@ app.get("/:numberOfBottles?", ( req, res ) => {
 
 Instead of directly building a string as the response to that `GET` request, we want to render a view using Handlebars.
 The `.render` method takes two arguments...
+
   1. The name of the view we want to render
   2. An object with values that will be made available in the view
 

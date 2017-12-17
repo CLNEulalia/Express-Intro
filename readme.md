@@ -42,10 +42,10 @@ The way we set up JavaScript projects for Node is a little different from how we
 
 Lets get started!
 
-1. Create a new directory in our Sandbox called `intro-to-node/`
-2. Create an `index.js` file inside of it
-3. Open the file in your text editor and add `console.log('hello node')` to the first line.
-4. Run `node index.js` in the terminal to run the file
+>1. Create a new directory in our Sandbox called `intro-to-node/`
+>2. Create an `index.js` file inside of it
+>3. Open the file in your text editor and add `console.log('hello node')` to the first line.
+>4. Run `node index.js` in the terminal to run the file
 
 You just executed JavaScript with Node!
 
@@ -68,9 +68,7 @@ To install and include a package that someone else wrote in your project, you'll
 
 Lets install the [reverse-string](https://www.npmjs.com/package/reverse-string) package:
 
-```
-npm install reverse-string
-```
+>run `npm install reverse-string` in your terminal
 
 Check your `package.json` file after the command finishes running:
 

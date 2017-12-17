@@ -3,8 +3,8 @@
 ## Learning Objectives
 
 - Compare and contrast JavaScript in the browser vs on the server
-- Use `npm` to manage project dependencies
-- Use `module.exports` and `require` to organize code
+- Review using `npm` to manage project dependencies
+- Review using `module.exports` and `require` to organize code
 - Build a server-side application with Express
 - Use Handlebars templates to simplify rendering in Express
 - Use and configure middleware (e.g. body-parser to handle form submissions)
@@ -12,11 +12,17 @@
 ## Framing
 > 5 minutes / 0:05
 
-Let's think about the JavaScript we've written so far:
+Let's think about the JavaScript we've written for project 1:
 
-* Where has the JavaScript code we've written been executed?
-* What are some common tasks we've used JavaScript for?
-* Which part of our applications (the front end or the back end) have used JavaScript?
+- Where has the JavaScript code we've written been executed?
+- What are some common tasks we've used JavaScript for?
+- Which part of our applications (the front end or the back end) have used JavaScript?
+
+What about the server we built from scratch?
+
+- Where was our code executed?
+- What tasks did our code perform?
+- Which part of our application was using JavaScript?
 
 This lesson introduces two new tools: Node and Express
 
@@ -28,12 +34,18 @@ The JavaScript we write today is the same JavaScript we've come to know and love
 ## We Do: Setting up a Node Project
 > 15 minutes / 0:20
 
-You have Node installed on your laptop. If you don't believe me, run `node` in your terminal. Doing so will pop you in to a JavaScript REPL in Node.
+Run `node` in your terminal. Doing so will pop you in to a JavaScript REPL (Read-Eval-Print-Loop) in Node. The REPL allows us to run JavaScript from our terminal.
 
-The way we set up JavaScript projects for Node is a little different from how we set up projects for the browser. Instead of including our JavaScript in a script tag in our HTML, we're going to execute our code in the command line with Node. We're also going to use a tool called NPM for managing dependencies.
+The way we set up JavaScript projects for Node is a little different from how we set up projects for the browser. Instead of including our JavaScript in a script tag in our HTML, we're going to execute our code in the command line with Node. We also use a tool called NPM for managing dependencies.
 
 ### Working with Node
-To get started, lets create a new directory in our Sandbox called `intro-to-node/`. Create an `index.js` file inside of it. Open the file in Atom and add `console.log("hello node");` to the first line. To run the file, run `node index.js` in the terminal.
+
+Lets get started!
+
+1. Create a new directory in our Sandbox called `intro-to-node/`
+2. Create an `index.js` file inside of it
+3. Open the file in your text editor and add `console.log('hello node')` to the first line.
+4. Run `node index.js` in the terminal to run the file
 
 You just executed JavaScript with Node!
 
@@ -42,16 +54,22 @@ This JavaScript is the same as the JavaScript we wrote in the browser, with some
 In Node, the global object is `process`. If you try to log `window`, Node assumes you're trying to reference a variable called `window`.
 
 ### Working with NPM
+
+- What is NPM?
+
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
-Run `npm init` in your `intro-to-node/` directory from before. You'll be asked a series of questions which will generate a `package.json` file. When it's finished, you'll be ready to build out your project and include third party code!
+1. Run `npm init` in your `intro-to-node/` directory from before. 
+2. You'll be asked a series of questions which will generate a `package.json` file. When it's finished, you'll be ready to build out your project and include third party code!
 
-To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. By itself, `npm install` will only download the package. You need to also pass in the `--save` or `-S` flag to update your `package.json` file.
+- What is a `package.json` file?
+
+To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. `npm install` will download the package and update your `package.json` file.
 
 Lets install the [reverse-string](https://www.npmjs.com/package/reverse-string) package:
 
 ```
-npm install --save reverse-string
+npm install reverse-string
 ```
 
 Check your `package.json` file after the command finishes running:

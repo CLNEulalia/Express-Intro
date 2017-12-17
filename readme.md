@@ -44,10 +44,12 @@ The way we set up JavaScript projects for Node is a little different from how we
 
 Lets get started!
 
->1. Create a new directory in our Sandbox called `intro-to-node/`
->2. Create an `index.js` file inside of it
->3. Open the file in your text editor and add `console.log('hello node')` to the first line.
->4. Run `node index.js` in the terminal to run the file
+```
+1. Create a new directory in our Sandbox called `intro-to-node/`
+2. Create an `index.js` file inside of it
+3. Open the file in your text editor and add `console.log('hello node')` to the first line.
+4. Run `node index.js` in the terminal to run the file
+```
 
 You just executed JavaScript with Node!
 
@@ -61,10 +63,12 @@ In Node, the global object is `process`. If you try to log `window`, Node assume
 
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
->1. Run `npm init` in your `intro-to-node/` directory from before. 
->2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
+```
+1. Run `npm init` in your `intro-to-node/` directory from before. 
+2. Answer or skip (enter) a series of questions which will generate a `package.json` file.
+```
 
-What is a `package.json` file?
+- What is a `package.json` file?
 
 To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. `npm install` will download the package and update your `package.json` file.
 
@@ -96,11 +100,13 @@ Check your `package.json` file after the command finishes running:
 
 We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
 
->1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file. 
->2. Add `console.log(reverse('hello world'))` below your `require()` statement. If you 
->3. Run the file with Node: `node index.js` 
+```
+1. Add `const reverse = require('reverse-string')` to the very top of your `index.js` file. 
+2. Add `console.log(reverse('hello world'))` below your `require()` statement. If you 
+3. Run the file with Node: `node index.js` 
+```
 
-What was logged? How did we do it?
+- What was logged? How did we do it?
 
 We've covered running JavaScript files with Node, installing third-party libraries with NPM and then using those libraries in your own JavaScript. Next, we'll cover all of this again but with Express, a web framework for Node.
 
@@ -115,10 +121,11 @@ Express' minimalism comes with some trade-offs. On the one hand, Express feels "
 Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give it's developer more structure.
 
 At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers four key features:
-1. Routing
-2. Subapplications
-3. Middleware
-4. Conveniences
+
+- Routing
+- Middleware
+- Conveniences
+- Subapplications
 
 ## We Do: Hello World with Express
 > 15 minutes / 0:40

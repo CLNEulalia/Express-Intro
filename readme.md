@@ -100,6 +100,8 @@ We've now installed `reverse-string` with NPM - but how do we use it. Node has a
 >2. Add `console.log(reverse('hello world'))` below your `require()` statement. If you 
 >3. Run the file with Node: `node index.js` 
 
+What was logged? How did we do it?
+
 We've covered running JavaScript files with Node, installing third-party libraries with NPM and then using those libraries in your own JavaScript. Next, we'll cover all of this again but with Express, a web framework for Node.
 
 ## Introducing Express

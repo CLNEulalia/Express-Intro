@@ -4,7 +4,7 @@
 
 - Compare and contrast JavaScript in the browser vs on the server
 - Review using `npm` to manage project dependencies
-- Review using `module.exports` and `require` to organize code
+- Review using `require()` to import packages in our code
 - Build a server-side application with Express
 - Use Handlebars templates to simplify rendering in Express
 - Use and configure middleware (e.g. body-parser to handle form submissions)

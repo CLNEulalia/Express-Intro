@@ -61,7 +61,7 @@ In Node, the global object is `process`. If you try to log `window`, Node assume
 
 **NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
 
-Create a `package.json` file in the `intro-to-node` directory, Then answer or skip (enter) the prompted questions.
+Create a `package.json` file in the `intro-to-node` directory with `npm init `. Then answer or skip (enter) the prompted questions.
 
 ```bash
 $ npm init

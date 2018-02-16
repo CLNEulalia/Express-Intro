@@ -69,7 +69,11 @@ $ npm init
 
 - What is a `package.json` file?
 
-To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. `npm install` will download the package and update your `package.json` file.
+Open up and inspect the contents of your `package.json` file.
+
+To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. 
+
+`npm install` will download the entire package (all dependencies) and update your `package.json` file.
 
 Lets install the [reverse-string](https://www.npmjs.com/package/reverse-string) package:
 
@@ -96,6 +100,8 @@ Check your `package.json` file after the command finishes running:
 	
 	Packages managed by NPM are installed in a `node_modules/` directory. NPM will create this directory for you if there isn't already one present.
 </details>
+
+For full documentation on `package.json`, [click here](https://docs.npmjs.com/files/package.json).
 
 ### Using Third-party packages
 
@@ -124,9 +130,9 @@ We've covered running JavaScript files with Node, installing third-party librari
 
 Express is a minimalistic web framework. Compared to web frameworks like Django and Ruby on Rails, Express is tiny. But it was intentionally designed that way. Throughout Express' history and development, the core of the web framework has gotten smaller as more and more functionality is spun-off into separate packages.
 
-Express' minimalism comes with some trade-offs. On the one hand, Express feels "close to the wire": there isn't a lot of "magic" like there is with Rails. This means you won't have cruft in your application or things that you don't need; it also means you'll be responsible for building out everything you do need.
+Express feels "close to the wire" - i.e. you will be building out the functionality that you want. This minimalism comes with some trade-offs.  On the one hand, you won't have unnecessarily complicated code in your application or things that you don't need. It also means you'll be responsible for building out everything you do need.
 
-Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give it's developer more structure.
+Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give its developers more structure.
 
 At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers a few convenient features:
 
@@ -196,7 +202,9 @@ Our app is running and we're able to visit it in the browser. But we're missing 
 
 The first key feature that Express provides is simple and easy routing.
 
-A *route* is a path and an HTTP verb. Express contains a method for each HTTP verb which in turn accepts a path as the first argument then some number of callback functions. Each callback is given two objects and a function: one object representing the request, one object representing our response and a function representing the next callback.
+A *route* is a path and an HTTP verb. Express contains a method for each HTTP verb which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function. 
+
+In the example below, the callback function is given two arguments: the first represents the HTTP request object, and the second represents the HTTP response object.
 
 Let's update `index.js`. Add this above `app.listen()`:
 
@@ -218,7 +226,9 @@ No change. The running server won't change until we restart it  and refresh the 
 Hello World
 ```
 
-Constantly needing to restart the server will get very tedious, very quickly. Instead, we can use the `nodemon` module to run our server. Instead of requiring `nodemon` in our code, we use `nodemon` from the command line. Then, `nodemon` will restart our server for us whenever a file is changed
+Constantly needing to restart the server will get very tedious, very quickly. Instead, we can use the `nodemon` module to run our server. Instead of requiring `nodemon` in our code, we use `nodemon` from the command line. Then, `nodemon` will restart our server for us whenever a file is changed.
+
+To check if you have nodemon, run: `nodemon -v`.
 
 **If you do not already have nodemon installed**
 
@@ -254,10 +264,11 @@ app.get("/:name", (req, res) => {
   res.send(`hello ${req.params.name}`)
 })
 ```
+> Note: the `request` and `response` objects are often shortened to just `req` and `res`.
 
 - Our route has changed! What is different?
 
-Route parameters are named sections of our path, they are placeholders that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
+Route parameters are named sections of our path, they are placeholders (similar to variables) that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
 
 Now if we visit `http://localhost:4000/bob`, we should see:
 
@@ -288,9 +299,9 @@ Handlebars is a JavaScript module for templating. Handlebars, a templating langu
 
 Handlebars is a light-weight tool, and it is simple in its functionality. It's useful for building small applications very quickly, however it is limited by its simplicity. In the coming weeks we will transition to React.js, a more powerful front-end framework, to build more complex and dynamic applications.
 
-Handlebars is not the only templating engine we can use. [There are many others](https://github.com/expressjs/express/wiki#template-engines).
+[Here are some other templating languages](https://github.com/expressjs/express/wiki#template-engines).
 
-Install Handlebars as a project dependency: `
+Install Handlebars as a project dependency: 
 
 ```bash
 $ npm install hbs
@@ -310,11 +321,11 @@ $ touch views/index.hbs
 $ touch views/layout.hbs
 ```
 
-Let's change up our existing `index.js` to utilize a template rather than sending in a string directly. In `bottles.js`:
+Let's change up our existing `index.js` to utilize a template rather than sending in a string directly. In `index.js`:
 
 ```js
-app.get("/:numberOfBottles?", ( req, res ) => {
-  let bottles = req.params.numberOfBottles || 99
+app.get("/:numberOfBottles", (req, res) => {
+  let bottles = req.params.numberOfBottles
   let next = bottles - 1
   res.render("index", {bottles, next})
 })
@@ -329,7 +340,7 @@ The `.render` method takes two arguments...
 The only problem is our view is empty! Let's go ahead and change that now. In `views/layouts.hbs`:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Express Intro</title>
@@ -357,19 +368,24 @@ Finally we should update our index view to reflect the same strings we had befor
 
 > This syntax for the conditional statement is a [built-in helper from Handlebars](http://handlebarsjs.com/block_helpers.html).
 
-## Middleware
+Start your server back up using `nodemon index.js`, and refresh your page to see it render.
+
+## Introducing Middleware
 
 > 20 minutes / 2:15
 
 Let's personalize our 99 bottles app.  We'll make a welcome page with a form asking for user's name.
 
-We need a route and a view with a form:
+We need a route and a view with a form. In `index.js`:
 
 ```js
 app.get("/", (req, res) => {
   res.render("welcome")
 })
 ```
+
+Now, we'll create a welcome file at the command line:
+`touch views/welcome.hbs`
 
 ```html
 <!-- views/welcome.hbs -->
@@ -381,7 +397,7 @@ app.get("/", (req, res) => {
 </form>
 ```
 
-Submit a name:
+Refresh your browser, and submit a name in the form:
 
 ```
 Cannot POST /
@@ -389,7 +405,7 @@ Cannot POST /
 
 ### How can we fix this?
 
-> In `bottles.js`:
+> In `index.js`:
 
 ```js
 app.post("/", (req, res) => {
@@ -397,25 +413,19 @@ app.post("/", (req, res) => {
 })
 ```
 
-Well it works, but it's not super valuable, we're not even getting our parameters. Let's greet the name submitted in the form:
+Well this works, but it's not super valuable, and we are not capturing the user input. 
 
-```js
-app.post("/", (req, res) => {
-  res.send("Hello " + req.params.player_name)
-})
-```
+How can we greet the name submitted in the form?
 
-If we resubmit our form, we should get back `hello undefined`.That seems weird. To be sure let's `console.log(req.params)`.
+That's where middleware comes in...
 
-It's an empty object!
-
-Our HTML form information is not in `req.params`. That's because Express is not handling information posted from a form. We need to install middleware – code that runs in between receiving the request and sending the response – in order to get form or JSON data in a POST request. Rails and Sinatra already include the middleware to handle this. Express by default does not, so we need to install it manually.
+By default, Express does not handle information posted from a form. in order to get form or JSON data in a POST request, we need to install middleware – code that runs in between receiving the request and sending the response.
 
 ### You Do: `body-parser` Walkthrough
 
 > 10 minutes / 2:25
 
-The middleware we will install is called **body-parser**. It used to be included to Express by default, but was removed and made in to it's own module to make Express more minimal.
+The middleware we will install is called **body-parser**. It used to be included to Express by default, but was removed and made into its own module to make Express more minimal.
 
 In the terminal:
 
@@ -450,7 +460,7 @@ app.post("/", (req, res) => {
 })
 ```
 
-And finally, we'll integrate it the name into our index template...
+Once we've confirmed that is working, we'll integrate the name into our index template...
 
 ```js
 app.post("/", (req, res) => {
@@ -462,7 +472,7 @@ app.post("/", (req, res) => {
 })
 ```
 
-And to our view:
+And to our view in `index.hbs`:
 
 ```html
 {{#if player_name}}

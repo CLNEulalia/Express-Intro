@@ -19,18 +19,20 @@ Let's think about the JavaScript we've written for project 1:
 - What are some common tasks we've used JavaScript for?
 - Which part of our applications (the front end or the back end) have used JavaScript?
 
-What about the server we built from scratch?
+What about the exercise this morning (building a node package)?
 
 - Where was our code executed?
-- What tasks did our code perform?
 - Which part of our application was using JavaScript?
 
-This lesson introduces two new tools: Node and Express
+This morning introduced Node:
 
-- **Node** is a JavaScript runtime used to build Server-side applications
+- **Node** is a JavaScript runtime used to build server-side applications
+
+This lesson will introduce a new tool, called Express:
+
 - **Express** is an un-opinionated web development framework, written in Node.
 
-The JavaScript we write today is the same JavaScript we've come to know and love; it's the environment that's different. The JavaScript we wrote previously was for browsers and the client. The JavaScript we're writing today will be run by Node on our laptops simulating a server.
+The JavaScript we write today is the same JavaScript we've come to know and love; it's the environment that's different. The JavaScript we wrote previously was for browsers and the client. The JavaScript we're writing today will be run by Node on our computers, simulating a server.
 
 ## We Do: Setting up a Node Project
 
@@ -49,17 +51,19 @@ Lets get started!
 > 3. Open the file in your text editor and add `console.log('hello node')` to the first line.
 > 4. Run `node index.js` in the terminal to run the file
 
-You just executed JavaScript with Node!
-
 This JavaScript is the same as the JavaScript we wrote in the browser, with some minor differences. In the browser, the global object was the `window`, referring to the browser window. What do you think will happen if you change your `index.js` file to `console.log(window);`?
 
 In Node, the global object is `process`. If you try to log `window`, Node assumes you're trying to reference a variable called `window`.
 
 ### Working with NPM
 
-- What is NPM?
+<details>
+	<summary>What is NPM?</summary>
+	
+	**NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. 
+</details>
 
-**NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. It manages these packages with a manifest inside of a `package.json` file.
+It manages these packages with a manifest inside of a `package.json` file.
 
 Create a `package.json` file in the `intro-to-node` directory with `npm init `. Then answer or skip (enter) the prompted questions.
 

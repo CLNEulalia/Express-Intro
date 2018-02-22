@@ -502,7 +502,7 @@ Today we have reviewed two key features of Express: routing and middleware. Expr
 
 ## You Do: Emergency Compliment (Homework)
 
-[Emergency Compliment](https://github.com/ga-dc/compliment-express)
+[Emergency Compliment](https://git.generalassemb.ly/ga-wdi-exercises/emergency_compliment)
 
 ## Bonus: Subapplications
 

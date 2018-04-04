@@ -288,7 +288,7 @@ hello bob
 
 > 15 minutes / 1:35
 
-The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/99_bottles_express).
+The exercise can be found [here](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express).
 
 **Hint**: you can send HTML elements in your GET response
 
@@ -297,7 +297,7 @@ The exercise can be found [here](https://git.generalassemb.ly/ga-wdi-exercises/9
 > 20 minutes /  1:55
 
 Let's leverage our [solution to 99 Bottles of
-Beer](https://github.com/ga-dc/99_bottles_express/tree/solution) to learn about views.
+Beer](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express/tree/solution) to learn about views.
 
 Handlebars is a JavaScript module for templating. Handlebars, a templating language, allows us to write a simple front-end within the same application as our server. We will create a template that can change depending on the responses sent from our server. Fortunately, handlebars looks a lot like HTML!
 
@@ -502,7 +502,7 @@ Today we have reviewed two key features of Express: routing and middleware. Expr
 
 ## You Do: Emergency Compliment (Homework)
 
-[Emergency Compliment](https://git.generalassemb.ly/ga-wdi-exercises/emergency_compliment)
+[Emergency Compliment](https://git.generalassemb.ly/dc-wdi-node-express/emergency_compliment)
 
 ## Bonus: Subapplications
 

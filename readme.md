@@ -2,12 +2,12 @@
 
 ## Learning Objectives
 
-- Compare and contrast JavaScript in the browser vs on the server
-- Review using `npm` to manage project dependencies
-- Review using `require()` to import packages in our code
-- Build a server-side application with Express
-- Use Handlebars templates to simplify rendering in Express
-- Use and configure middleware (e.g. body-parser to handle form submissions)
+- Explain and understand the request-response cycle
+- Discus how the internet works including:
+  - Browser requests
+  - Status codes
+  - HTTP methods and REST
+- Build a simple server-side application with Express
 
 ## Framing
 

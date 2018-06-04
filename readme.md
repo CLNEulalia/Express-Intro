@@ -1,179 +1,132 @@
-# Express
+# Intro to Express
 
-## Learning Objectives
+Today is a big day in WDI! We've build front-end applications using our knowledge and expertise of HTML, CSS and JavaScript. Over the next few weeks we're going to venture in to new territory: building full-stack applications!
+
+The framework we're going to learn for building full-stack applications is called Express. We're going to use it to build feature-rich applications, like the ones you often use: Spotify, Facebook, Twitter, etc. We'll learn how these applications are able to handle requests from users, save data to a database and then process that data before displaying it to the users. If you have a startup idea or an idea for an application, you're about two weeks away from being able to build it!
+
+Before we get to that, let's learn a little more about how the internet works and how Express fits in to building full-stack applications.
+
+## Objectives
+
+By the end of this lesson, developers should be able to:
 
 - Explain and understand the request-response cycle
-- Discus how the internet works including:
+- Discuss how the internet works including:
   - Browser requests
   - Status codes
   - HTTP methods and REST
 - Build a simple server-side application with Express
 
-## Framing
+## Introduction
 
-> 5 minutes / 0:05
+Express is a framework for building web applications.
 
-Let's think about the JavaScript we've written for project 1:
+What does that mean?
 
-- Where has the JavaScript code we've written been executed?
-- What are some common tasks we've used JavaScript for?
-- Which part of our applications (the front end or the back end) have used JavaScript?
+In development, a framework is a collection of tools, patterns, and conventions that let you perform some task quickly and efficiently. There are lots of different kinds of frameworks for different kinds of tasks. There are frameworks for building command line applications, frameworks for deploying applications to the cloud, and frameworks for running tests against an application to make sure everything is working as it's supposed to.
 
-What about the exercise this morning (building a node package)?
+Express is a framework for building web applications, meaning it's a set of tools, patterns and conventions for building applications for the internet. It works within the confines of the internet so that when you navigate to a URL in your browser, an app built with Express can handle that URL and send you some response (like an HTML file).
 
-- Where was our code executed?
-- Which part of our application was using JavaScript?
+## How does the Internet Work
 
-This morning introduced Node:
+Before we can build our first full-stack application, we need to discuss how the internet works. Once we know a little bit about how the internet works, we can start to think about how Express (our back-end) fits in with our front-end.
 
-- **Node** is a JavaScript runtime used to build server-side applications
+### Client-Server
 
-This lesson will introduce a new tool, called Express:
+The internet follows a model of communication called `client-server`. Your browser is the `client`, used for navigating and interacting with the web. While our browsers exist on our computers or phones, the internet does not! Our browsers are portals to the internet. The other side of the equation is the `server` - a computer somewhere that stores and *serves* webpages.
 
-- **Express** is an un-opinionated web development framework, written in Node.
+![Client-Server](./assets/client-server)
 
-The JavaScript we write today is the same JavaScript we've come to know and love; it's the environment that's different. The JavaScript we wrote previously was for browsers and the client. The JavaScript we're writing today will be run by Node on our computers, simulating a server.
+The client and server communicate using `http` and the `request-response` cycle.
 
-## We Do: Setting up a Node Project
+### HTTP
 
-> 15 minutes / 0:20
+HTTP stands for **Hyper-Text Transfer Protocol**. If the client and server communicate, then HTTP is the structure of that communication. HTTP dictates how the client requests information from a server and how the server responds. Each message is similarly formatted - so you can think of them as like electronic telegrams.
 
-Run `node` in your terminal. Doing so will pop you in to a JavaScript REPL (Read-Eval-Print-Loop) in Node. The REPL allows us to run JavaScript from our terminal.
+Requests always have these three parts:
 
-The way we set up JavaScript projects for Node is a little different from how we set up projects for the browser. Instead of including our JavaScript in a script tag in our HTML, we're going to execute our code in the command line with Node. We also use a tool called NPM for managing dependencies.
+1. Request line (including the URL and the HTTP Method)
+1. Request header (additional information about the request and what we expect in the response)
+1. Body message (optional - things like form data)
 
-### Working with Node
+Responses in turn always have these three parts:
 
-Lets get started!
+1. Status (a status code indicating how the request was handled)
+1. Response header (additional information about the response)
+1. Body message (optional - an html document, JSON, XML)
 
-> 1. Create a new directory in our Sandbox called `intro-to-node/`
-> 2. Create an `index.js` file inside of it
-> 3. Open the file in your text editor and add `console.log('hello node')` to the first line.
-> 4. Run `node index.js` in the terminal to run the file
+Clients make requests to a location (called a URL) using a method. There are 10 possible HTTP methods, but only 5 that are important:
 
-This JavaScript is the same as the JavaScript we wrote in the browser, with some minor differences. In the browser, the global object was the `window`, referring to the browser window. What do you think will happen if you change your `index.js` file to `console.log(window);`?
+| Method Name | Description |
+| --- | --- |
+| GET | Used for retrieving data from a server. |
+| POST | Used for sending data to the server. |
+| PUT | Used for replacing data on the server. |
+| PATCH | Used for updating data on the server. |
+| DELETE | Used for deleting data from the server. |
 
-In Node, the global object is `process`. If you try to log `window`, Node assumes you're trying to reference a variable called `window`.
+Browsers have only implemented GET and POST, the rest we need to do using JavaScript or find some kind of work-around.
 
-### Working with NPM
+When the server receives a request, it processes the message and then sends a response. The server always sends a response, though sometimes that response is just to tell the client that there was an error. Generally, the response will be an HTML document.
 
-<details>
-	<summary>What is NPM?</summary>
-	
-	**NPM** stands for *Node Package Manager*. It's a tool that does exactly what it says: it manages packages for Node. 
-</details>
+#### How does it actually work
 
-It manages these packages with a manifest inside of a `package.json` file.
+When you type a URL in the navigation bar of your browser, you make a GET request to that URL (i.e. `http://www.google.com`). The server receives that message and formulates a response: a 200 status code (to indicate everything worked out just fine) and an HTML document for the Google home page.
 
-Create a `package.json` file in the `intro-to-node` directory with `npm init `. Then answer or skip (enter) the prompted questions.
+When you click on a link, you're making a GET request to a URL, just like when you type the URL in the navigation bar of your browser. The server receives the request and sends a response with a new HTML document for you.
 
-```bash
-$ npm init
-```
+When you submit a form, you make a POST request to a URL defined in the `action` attribute of the `<form>` element. The fields in the form become the request body. The server processes the request (typically saving the request body to a database) and then sends a response.
 
-- What is a `package.json` file?
+### Why do we care
 
-Open up and inspect the contents of your `package.json` file.
+When the internet was first created, you would request a document that already existed (in full) on the server. So when you typed in `http://www.timberners-lee.com`, you received an HTML document on Tim's server. If you wanted to see the about page on Tim's website, you would navigate to `http://www.timberners-lee.com/about.html`. The important thing to note is that someone wrote those HTML pages in full and by hand.
 
-To install and include a package that someone else wrote in your project, you'll use the `npm` command line interface. The command for installing a package is `npm install <packageName>`, where `packageName` is the name of the package you want to install. 
+That worked well when the internet was just used for sharing scientific documents. Back then, websites weren't backed by databases and didn't need to dynamically retrieve content like they do now.
 
-`npm install` will download the entire package (all dependencies) and update your `package.json` file.
+Imagine you have a website for your cats. Each of your 10 cats has a page on the site:
 
-Lets install the [reverse-string](https://www.npmjs.com/package/reverse-string) package:
+- `www.cat-astrophy.com/whiskers.html`
+- `www.cat-astrophy.com/mr-fuzzy-pants.html`
+- `www.cat-astrophy.com/purrrasaurus-rex.html`
+- `www.cat-astrophy.com/walter.html`
+- ...
 
-```bash
-$ npm install reverse-string
-```
+You would have to make a full HTML document for each page. None of the HTML would change from page to page, but the information inside of that HTML would - because it was unique to each cat.
 
-Check your `package.json` file after the command finishes running:
+What a load of work! We don't have time for that! We're programmers!
 
-<details>
-	<summary>What changed, if anything?</summary>
-	
-	There should now be a `dependencies` object with `reverse-string` in it.
-</details>
+> True story: this is why PHP was created.
 
-<details>
-	<summary>Where did the package come from?</summary>
-	
-	Packages installed and managed with NPM generally come from the [NPM Registry](https://www.npmjs.com), a registry of third-party packages that you can install and use in your projects.
-</details>
+Instead of writing all that HTML by hand, lets build and use tools that make it so we can dynamically retrieve content and "fill in" an HTML document like a template. That is exactly what Express and any other web framework does!
 
-<details>
-	<summary>Where was the package downloaded?</summary>
-	
-	Packages managed by NPM are installed in a `node_modules/` directory. NPM will create this directory for you if there isn't already one present.
-</details>
+When we use Express, we don't need to have a `whiskers.html` file on our server - we just need to have all our information about whiskers in our database. Then when someone makes a GET request to `ww.cat-astrohpy.com/whiskers`, our server-side application (built with Express) will see that the request contains `whiskers` inside of it, pull the data about whiskers from the database and dynamically render and send an HTML document with that data.
 
-For full documentation on `package.json`, [click here](https://docs.npmjs.com/files/package.json).
+So much easier!
 
-### Using Third-party packages
-
-We've now installed `reverse-string` with NPM - but how do we use it. Node has a `require()` method for including packages and other files.
-
-At the top of your `index.js` file, use `require()` to import the `reverse-string` package and use the `reverse()` method to test that the package is imported.
-
-```js
-const reverse = require('reverse-string')
-console.log(reverse('hello world'))
-```
-
-Run the file with Node:
-
-```bash
-$ node index.js
-```
-
-What was logged? How did we do it?
-
-We've covered running JavaScript files with Node, installing third-party libraries with NPM and then using those libraries in your own JavaScript. Next, we'll cover all of this again but with Express, a web framework for Node.
-
-## Introducing Express
-
-> 5 minutes / 0:25
+## Express
 
 Express is a minimalistic web framework. Compared to web frameworks like Django and Ruby on Rails, Express is tiny. But it was intentionally designed that way. Throughout Express' history and development, the core of the web framework has gotten smaller as more and more functionality is spun-off into separate packages.
 
-Express feels "close to the wire" - i.e. you will be building out the functionality that you want. This minimalism comes with some trade-offs.  On the one hand, you won't have unnecessarily complicated code in your application or things that you don't need. It also means you'll be responsible for building out everything you do need.
+Express feels "close to the wire" - i.e. you will be building out the functionality that you want. This minimalism comes with some trade-offs. On the one hand, you won't have unnecessarily complicated code in your application or things that you don't need. It also means you'll be responsible for building out everything you do need.
 
 Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give its developers more structure.
 
 At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers a few convenient features:
 
 - Routing
+- Views
 - Middleware
-- Subapplications (bonus)
+- Modularity with subapplications
 
-## We Do: Hello World with Express
+These are the core features of Express.
 
-> 15 minutes / 0:40
+## Setting up an Express App
 
-Let's jump right into creating a simple "Hello World" Express application as we explore these four key features.
+Let's explore Express by building a simple "Hello world" application. Go to [this repository](https://git.generalassemb.ly/dc-wdi-node-express/express-hello-world) for the exercise and follow the setup instructions there.
 
-Create and enter a new directory `hello-express` in your sandbox. Then, create a `package.json` file using npm.
+### Getting Started
 
-```bash
-$ mkdir hello-express
-$ cd hello-express
-$ npm init -y
-```
-
-<details>
-  <summary>What does `npm init -y` do?</summary>
-
-`npm init` creates a blank `package.json` file by prompting you for some user input. Using the `-y` flag will accept the details for all prompts.
-
-</details>
-
-The next thing we need to do is install the Express module:
-
-```bash
-$ npm install express
-```
-
-We can see in our `package.json` that the default main file for a node app is `index.js`. We could change this, but we'll use the default for now.
-
-Let's make a new `index.js` file and give it the following contents...
+Building our first server is pretty straightforward. Create an `index.js` file and write the following inside of it:
 
 ```js
 const express = require("express")
@@ -184,17 +137,23 @@ app.listen(4000, () => {
 })
 ```
 
+To start up our server, we just need to execute this file with node:
+
+```sh  
+node index.js
+```
+
 What's going on here?
 
 - we're requiring the Express module, which is a function that returns an instance of a web app
-- we're invoking the module, instantiating a constant `app` which holds all the methods and state we use to write and run our web app
+- we're invoking the module, instantiating a constant app which holds all the methods and state we use to write and run our web app
 - we're starting our server (and app) by listening on port 4000 for incoming requests
 
-When we run the application from the terminal `node index.js`, we can see `app listening on port 4000` printed to the terminal. The process continues to run, occupying the shell until we hit `ctrl + c`, just like pervious servers we have run.
+When we run the application from the terminal, `node index.js`, we can see app listening on port 4000 printed to the terminal. The process continues to run, occupying the shell until we hit ctrl + c.
 
 If we visit `http://localhost:4000` in the browser, we'll see something like this:
 
-```
+```sh
 Cannot GET /
 ```
 
@@ -202,13 +161,11 @@ Our app is running and we're able to visit it in the browser. But we're missing 
 
 ### Routing
 
-> 10 minutes / 0:50
-
 The first key feature that Express provides is simple and easy routing.
 
-A *route* is a path and an HTTP verb. Express contains a method for each HTTP verb which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function. 
+A *route* is a path and an HTTP method. The path will come from the URL, so if we visit `http://www.cat-astrophy.com/whiskers` the path will be `/whiskers`. The HTTP method will be the method we want to accept: `GET`, `POST`, `PUT`, or `DELETE`.
 
-In the example below, the callback function is given two arguments: the first represents the HTTP request object, and the second represents the HTTP response object.
+Express contains a (function) method for each HTTP method which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function:
 
 Let's update `index.js`. Add this above `app.listen()`:
 
@@ -218,13 +175,15 @@ app.get("/", (request, response) => {
 })
 ```
 
-We've added a route and a handler for requests to the "/" route. In this case, we're sending the string `"hello world"` as the response. Let's see if this takes effect in the browser:
+In the example below, the callback function is given two arguments: the first represents the HTTP request object and the second represents the HTTP response object.
+
+We've added a route and a handler for requests to the `"/"` route. In this case, we're sending the string `"Hello World"` as the response. Let's see if this takes effect in the browser:
 
 ```
 Cannot GET /
 ```
 
-No change. The running server won't change until we restart it  and refresh the page. Once we do that, we'll see:
+No change. The running server won't change until we restart it and refresh the page. Once we do that, we'll see:
 
 ```
 Hello World
@@ -240,72 +199,65 @@ To check if you have nodemon, run: `nodemon -v`.
 
 > When using the `--global` flag (or `-g` for short), we're specifying that `nodemon` will be installed "globally" so we can utilize `nodemon` across all of our node applications (and also that it is not included in our project dependencies).
 
-We start up our application a bit differently now. 
+We start up our application a bit differently now:
 
-> In the terminal, run: `nodemon index.js`
+```sh
+nodemon index.js
+```
 
-### Turn and Talk
+#### Params in Express
 
-> 10 minutes / 1:00
+How do we make our routes dynamic? Using parameters!
 
-Take a few minutes to walk through our code with a neighbor. Make sure you understand the purpose of each line of code. Reach out to other neighbors for clarification.
+Route parameters give us flexibility when writing routes in Express.
 
-Compare your express server with server we built from scratch.
-
-- What is similar?
-- What is different?
-
-### Params in Express
-
-> 10 minutes / 1:10
-
-Route parameters give us flexibility when writing routes in express.
-
-Let's update `index.js` to include...
+Let's update `index.js` to include:
 
 ```js
 app.get("/:name", (req, res) => {
   res.send(`hello ${req.params.name}`)
 })
 ```
+
 > Note: the `request` and `response` objects are often shortened to just `req` and `res`.
 
-- Our route has changed! What is different?
+Our route has changed! What is different?
 
-Route parameters are named sections of our path, they are placeholders (similar to variables) that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
+Route parameters are named sections of our path, they are placeholders (similar to variables or parameters) that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
 
-Now if we visit `http://localhost:4000/bob`, we should see:
+Now if we visit `http://localhost:4000/Whiskers`, we should see:
 
 ```
-hello bob
+hello Whiskers
 ```
 
-## Break
+What do you think we'll see if we visit `http://localhost:4000/Purrasaurus-rex`?
 
-> 10 minutes / 1:20
+### Views
 
-## You Do: 99 Bottle of Beer
+Right now our simple Express application is just sending back a string of content, instead of an entire HTML file. As we're building complex applications we need to be able to dynamically create entire HTML pages, something Express makes simple with **views**.
 
-> 15 minutes / 1:35
+We're going to use Handlebars for creating our views. Handlebars, a templating language, allows us to write HTML with inline variables that we can fill in with data from our application. That means, we can have the following handlebars template:
 
-The exercise can be found [here](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express).
+```html
+<h1>Hello {{name}}</h1>
+```
 
-**Hint**: you can send HTML elements in your GET response
+And in our Express app, pass in an object that sets the `name` property. Whatever value is in our `name` property will be output in our HTML!
 
-## Views
+```js
+app.get('/:name', function(req, res) {
+	res.render('template', { name: req.params.name })
+})
+```
 
-> 20 minutes /  1:55
+If we visit `http://localhost:4000/Whiskers`, then the HTML we would get back would be:
 
-Let's leverage our [solution to 99 Bottles of
-Beer](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express/tree/solution) to learn about views.
-
-Handlebars is a JavaScript module for templating. Handlebars, a templating language, allows us to write a simple front-end within the same application as our server. We will create a template that can change depending on the responses sent from our server. Fortunately, handlebars looks a lot like HTML!
-
-Handlebars is a light-weight tool, and it is simple in its functionality. It's useful for building small applications very quickly, however it is limited by its simplicity. In the coming weeks we will transition to React.js, a more powerful front-end framework, to build more complex and dynamic applications.
-
-[Here are some other templating languages](https://github.com/expressjs/express/wiki#template-engines).
-
-Install Handlebars as a project dependency: 
+```html
+<h1>Hello Whiskers</h1>
+```
+  
+Let's set up our Express app to use Handlebars. We first need to install it as a project dependency: 
 
 ```bash
 $ npm install hbs
@@ -317,7 +269,7 @@ In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/
 app.set("view engine", "hbs")
 ```
 
-Let's go ahead and create a directory that will contain our templates in the root directory of the Express 99 Bottles application. In the terminal:
+Let's go ahead and create a directory that will contain our templates in the root directory of the Hello World application. In the terminal:
 
 ```bash
 $ mkdir views
@@ -328,15 +280,14 @@ $ touch views/layout.hbs
 Let's change up our existing `index.js` to utilize a template rather than sending in a string directly. In `index.js`:
 
 ```js
-app.get("/:numberOfBottles", (req, res) => {
-  let bottles = req.params.numberOfBottles
-  let next = bottles - 1
-  res.render("index", {bottles, next})
+app.get('/:name', function(req, res) {
+	res.render('template', { name: req.params.name })
 })
 ```
 
 Instead of directly building a string as the response to that `GET` request, we want to render a view using Handlebars.
-The `.render` method takes two arguments...
+
+The `.render` method takes two arguments:
 
   1. The name of the view we want to render
   2. An object with values that will be made available in the view
@@ -362,25 +313,24 @@ This allows us to utilize files in that folder in the layout.
 Finally we should update our index view to reflect the same strings we had before. In `views/index.hbs`:
 
 ```html
-{{bottles}} bottles of beer on the wall.
-{{#if next}}
-  <a href='/{{next}}'>Take One Down, Pass it Around</a>
-{{else}}
-  <a href='/'>Start Over</a>
-{{/if}}
+<h1>Hello {{name}}</h1>
 ```
-
-> This syntax for the conditional statement is a [built-in helper from Handlebars](http://handlebarsjs.com/block_helpers.html).
 
 Start your server back up using `nodemon index.js`, and refresh your page to see it render.
 
 ## Introducing Middleware
 
-> 20 minutes / 2:15
+The third major feature that Express provides is Middleware.
 
-Let's personalize our 99 bottles app.  We'll make a welcome page with a form asking for user's name.
+Middleware is just a function that transforms the `request` and/or the `response` object. Middleware functions get called in a series and each updates or transforms the `request` and/or the `response` object before passing them on to the next function in the series. Middleware is what makes it so we can build complex applications with Express - we'll use middleware for a lot of things, including:
 
-We need a route and a view with a form. In `index.js`:
+- working with form data
+- authentication
+- logging
+
+Let's make it so our Hello World app takes someone's name through a form that a user submits, instead of through a route parameter.
+
+We need a new route and a new view with a form. In `index.js`:
 
 ```js
 app.get("/", (req, res) => {
@@ -393,10 +343,10 @@ Now, we'll create a welcome file at the command line:
 
 ```html
 <!-- views/welcome.hbs -->
-<h1>Welcome to 99 Bottles</h1>
+<h1>Hello World</h1>
 <form action="/" method="post">
-  <label for="player_name">Please enter your name</label>
-  <input id="player_name" type="text" name="player_name">
+  <label for="name">Please enter your name</label>
+  <input id="name" type="text" name="name">
   <input type="submit">
 </form>
 ```
@@ -407,37 +357,32 @@ Refresh your browser, and submit a name in the form:
 Cannot POST /
 ```
 
-### How can we fix this?
-
-> In `index.js`:
+Express doesn't have a way to handle this request! We only set up a route for `GET` requests:
 
 ```js
+// index.js
 app.post("/", (req, res) => {
   res.send("Hello there!")
 })
 ```
 
-Well this works, but it's not super valuable, and we are not capturing the user input. 
+Well this works, but it's not super valuable, and we are not capturing the user input.
 
 How can we greet the name submitted in the form?
 
 That's where middleware comes in...
 
-By default, Express does not handle information posted from a form. in order to get form or JSON data in a POST request, we need to install middleware – code that runs in between receiving the request and sending the response.
+By default, Express does not handle information posted from a form. in order to get form or JSON data in a `POST` request, we need to install middleware – code that runs in between receiving the request and sending the response.
 
-### You Do: `body-parser` Walkthrough
+The specific middleware we need to achieve this functionality is called **body-parser**. It used to be included to Express by default, but was removed and made into its own module to make Express more minimal.
 
-> 10 minutes / 2:25
-
-The middleware we will install is called **body-parser**. It used to be included to Express by default, but was removed and made into its own module to make Express more minimal.
-
-In the terminal:
+Install body-parser in the terminal:
 
 ```bash
 $ npm install body-parser
 ```
 
-In `index.js`:
+Then require body-parser in `index.js`:
 
 ```js
 // configure app to use body parser
@@ -446,13 +391,10 @@ const bodyParser = require("body-parser")
 
 // below require and before any routes
 // tell Express to use bodyParser
-app.use(bodyParser.json()) //handles json post requests
 app.use(bodyParser.urlencoded({ extended: true })) // handles form submissions
 ```
 
 > Only the `urlencoded` body-parser middleware is necessary to get this form working.
-
-The JSON bodyparser is necessary if we want to handle AJAX requests with JSON bodies.
 
 Another thing to note is that, in Express, `req.params` holds just path params. Anything handled by the bodyParser (JSON or form bodies) will be held in `req.body`.
 
@@ -460,18 +402,16 @@ So we change the final post request in `index.js` to:
 
 ```js
 app.post("/", (req, res) => {
-  res.send(`hello ${req.body.player_name}`)
+  res.send(`hello ${req.body.name}`)
 })
 ```
 
-Once we've confirmed that is working, we'll integrate the name into our index template...
+Once we've confirmed that is working, we'll integrate the name into our index template:
 
 ```js
 app.post("/", (req, res) => {
   res.render("index", {
-    player_name: req.body.player_name,
-    bottles: 99,
-    next: 98
+    name: req.body.name,
   })
 })
 ```
@@ -479,58 +419,25 @@ app.post("/", (req, res) => {
 And to our view in `index.hbs`:
 
 ```html
-{{#if player_name}}
-  Hey {{player_name}}, there are {{bottles}} left on the wall.
-{{/if}}
+<h1>Hello {{name}}</h1>
 ```
 
-Be prepared to answer the following questions after completing this walkthrough:
+## You Do: 99 Bottles of Beer
 
-- What is the purpose of `body-parser`?
-- What is the difference between `bodyParser.urlencoded` and `bodyParser.json`?
-- How do we go about accessing values sent through a form in Express?
+In the time remaining, work through building out an app for the song 99 Bottles of Beer.
+
+The instructions for this exercise can be found [here](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express).
 
 ## Closing
 
-> 5 minutes / 2:30
-
-Express is a minimal and flexible web framework for building web applications with Node. Later on, we'll see how we can integrate Express with a database to persist data.
-
-Today we have reviewed two key features of Express: routing and middleware. Express has other convenient features that make server-side Javascript more simple. Explore Express.js docs [here](http://expressjs.com/) Express also makes it possible to create subapplications which can be handy as we scale to larger projects. You can learn more in the bonus section below.
+## Additional Resources
 
 
 
-## You Do: Emergency Compliment (Homework)
 
-[Emergency Compliment](https://git.generalassemb.ly/dc-wdi-node-express/emergency_compliment)
 
-## Bonus: Subapplications
 
-As our applications get larger, we will need more and more routes. Storing all of these routes in the same .js file can become confusing and difficult to manage. Subapplications in express provide a modular approach to building large applications. Express calls these *routers* and they let us break up our application into discrete sections based on our routes.
 
-Inside our Express app, lets create a `controllers/` directory and a `bottles.js` file inside of it.
 
-In Node, to separate code across multiple files, we'll use `require()` and `module.exports`. If we want to export something from one file, we'll add it to the `module.exports` object or use it to overwrite the `module.exports` object.
 
-Lets build out our `bottles/` subapplication inside of `bottles.js`:
 
-```
-const express = require('express');
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.send('bottles');
-});
-
-module.exports = router;
-```
-
-By assigning our `router` to `module.exports`, we're exporting the `router` object. We can import it in another file with `require()`. Back in our `index.js`:
-
-```
-const bottlesController = require('./controllers/bottles.js');
-
-app.use('/bottles', bottlesController);
-```
-
-Now any route that we add to our `router` inside of `controllers/bottles.js` will be available to us under the URL `/bottles`!

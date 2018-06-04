@@ -35,7 +35,7 @@ Before we can build our first full-stack application, we need to discuss how the
 
 The internet follows a model of communication called `client-server`. Your browser is the `client`, used for navigating and interacting with the web. While our browsers exist on our computers or phones, the internet does not! Our browsers are portals to the internet. The other side of the equation is the `server` - a computer somewhere that stores and *serves* webpages.
 
-![Client-Server](./assets/client-server)
+![Client-Server](./assets/client-server.png)
 
 The client and server communicate using `http` and the `request-response` cycle.
 
@@ -430,14 +430,5 @@ The instructions for this exercise can be found [here](https://git.generalassemb
 
 ## Closing
 
-## Additional Resources
-
-
-
-
-
-
-
-
-
+Our first step is to get a basic understanding of Express, how it works and what it does for us. Over the next few lessons, we'll learn how to build larger applications using Express.
 

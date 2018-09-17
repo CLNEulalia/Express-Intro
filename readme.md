@@ -25,7 +25,7 @@ What does that mean?
 
 In development, a framework is a collection of tools, patterns, and conventions that let you perform some task quickly and efficiently. There are lots of different kinds of frameworks for different kinds of tasks. There are frameworks for building command line applications, frameworks for deploying applications to the cloud, and frameworks for running tests against an application to make sure everything is working as it's supposed to.
 
-Express is a framework for building web applications, meaning it's a set of tools, patterns and conventions for building applications for the internet. It works within the confines of the internet so that when you navigate to a URL in your browser, an app built with Express can handle that URL and send you some response (like an HTML file).
+Express is a framework for building web applications, meaning it's a set of tools, patterns, and conventions for building applications for the internet. It works within the confines of the internet so that when you navigate to a URL in your browser, an app built with Express can handle that URL and send you some response (like an HTML file).
 
 ## How does the Internet Work
 
@@ -165,9 +165,9 @@ The first key feature that Express provides is simple and easy routing.
 
 A *route* is a path and an HTTP method. The path will come from the URL, so if we visit `http://www.cat-astrophy.com/whiskers` the path will be `/whiskers`. The HTTP method will be the method we want to accept: `GET`, `POST`, `PUT`, or `DELETE`.
 
-Express contains a (function) method for each HTTP method which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function:
+Express contains a function for each HTTP method which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function.
 
-Let's update `index.js`. Add this above `app.listen()`:
+Let's update `index.js`. Add this above `app.listen()`
 
 ```js
 app.get("/", (request, response) => {
@@ -175,7 +175,35 @@ app.get("/", (request, response) => {
 })
 ```
 
-In the example below, the callback function is given two arguments: the first represents the HTTP request object and the second represents the HTTP response object.
+Let's break down the syntax here.
+
+```js
+  app.get()
+```
+
+`app` is the variable we've declared above. It's an `instance` of the express server. `get()` is a function that tells express what `http method` to listen for.
+
+```js
+  app.get("/")
+```
+
+The first argument that `get()` takes is the `path`. This one is set to the root of wherever our server is listening (which is `http://localhost:4000`).
+
+```js
+  app.get("/", (request, response) => {})
+```
+
+The second argument that `get()` takes is a function. It's how we tell express what we want to do when the server receives a GET request at the root `"/"` url. The preferred syntax is to use arrow functions here, to keep it concise.
+
+In the example above, the callback function is given two arguments: the first represents the HTTP request object and the second represents the HTTP response object.
+
+**We always have to send a response**. We do that by using the response variable that we've declared in the callback. So we end up with a working route!
+
+```js
+  app.get("/", (request, response) => {
+    response.send("Hello World")
+  })
+```
 
 We've added a route and a handler for requests to the `"/"` route. In this case, we're sending the string `"Hello World"` as the response. Let's see if this takes effect in the browser:
 
@@ -215,7 +243,7 @@ Let's update `index.js` to include:
 
 ```js
 app.get("/:name", (req, res) => {
-  res.send(`hello ${req.params.name}`)
+  res.send(`Hello ${req.params.name}`)
 })
 ```
 
@@ -239,7 +267,7 @@ Right now our simple Express application is just sending back a string of conten
 
 We're going to use Handlebars for creating our views. Handlebars, a templating language, allows us to write HTML with inline variables that we can fill in with data from our application. That means, we can have the following handlebars template:
 
-```html
+```hbs
 <h1>Hello {{name}}</h1>
 ```
 
@@ -247,7 +275,7 @@ And in our Express app, pass in an object that sets the `name` property. Whateve
 
 ```js
 app.get('/:name', function(req, res) {
-	res.render('template', { name: req.params.name })
+  res.render('template', { name: req.params.name })
 })
 ```
 
@@ -263,7 +291,7 @@ Let's set up our Express app to use Handlebars. We first need to install it as a
 $ npm install hbs
 ```
 
-In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/using-template-engines.html) to use Handlebars as its "view engine":
+In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/using-template-engines.html) to use Handlebars as its "view engine". Put this below the requires, but above the routes.
 
 ```js
 app.set("view engine", "hbs")
@@ -281,7 +309,7 @@ Let's change up our existing `index.js` to utilize a template rather than sendin
 
 ```js
 app.get('/:name', function(req, res) {
-	res.render('template', { name: req.params.name })
+  res.render('template', { name: req.params.name })
 })
 ```
 
@@ -405,6 +433,24 @@ app.post("/", (req, res) => {
   res.send(`hello ${req.body.name}`)
 })
 ```
+
+> Where did the `name` variable come from? Why is it called that?
+
+<details>
+  <summary>
+  Answer
+  </summary>
+
+  In our HTML, the input field has a `name` attribute. So anything we set that equal to becomes the variable name in `req.body`
+
+  If we change it to "firstname" we can then grab `req.body.firstName`
+
+  The value will be equal to whatever was typed in the input field.
+
+  ```html
+  <input id="name" type="text" name="firstName">
+  ```
+</details>
 
 Once we've confirmed that is working, we'll integrate the name into our index template:
 

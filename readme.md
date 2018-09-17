@@ -275,7 +275,7 @@ And in our Express app, pass in an object that sets the `name` property. Whateve
 
 ```js
 app.get('/:name', function(req, res) {
-  res.render('template', { name: req.params.name })
+  res.render('templateName', { name: req.params.name })
 })
 ```
 
@@ -309,7 +309,7 @@ Let's change up our existing `index.js` to utilize a template rather than sendin
 
 ```js
 app.get('/:name', function(req, res) {
-  res.render('template', { name: req.params.name })
+  res.render('index', { name: req.params.name })
 })
 ```
 

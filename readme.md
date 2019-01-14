@@ -122,7 +122,11 @@ These are the core features of Express.
 
 ## Setting up an Express App
 
-Let's explore Express by building a simple "Hello world" application. Go to [this repository](https://git.generalassemb.ly/dc-wdi-node-express/express-hello-world) for the exercise and follow the setup instructions there.
+1. Create a new directory called "express-hello-world" in your sandbox.
+1. Change into the new directory
+1. Run npm init. Press enter a bunch of times to accept all the default values.
+1. Type npm install express.
+1. Work through the rest of this lesson
 
 ### Getting Started
 
@@ -457,7 +461,7 @@ Once we've confirmed that is working, we'll integrate the name into our index te
 ```js
 app.post("/", (req, res) => {
   res.render("index", {
-    name: req.body.name,
+    name: req.body.firstName,
   })
 })
 ```

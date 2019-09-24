@@ -1,6 +1,8 @@
+[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+
 # Intro to Express
 
-Today is a big day in WDI! We've build front-end applications using our knowledge and expertise of HTML, CSS and JavaScript. Over the next few weeks we're going to venture in to new territory: building full-stack applications!
+Today is a big day in SEI! We've build front-end applications using our knowledge and expertise of HTML, CSS and JavaScript. Over the next few weeks we're going to venture in to new territory: building full-stack applications!
 
 The framework we're going to learn for building full-stack applications is called Express. We're going to use it to build feature-rich applications, like the ones you often use: Spotify, Facebook, Twitter, etc. We'll learn how these applications are able to handle requests from users, save data to a database and then process that data before displaying it to the users. If you have a startup idea or an idea for an application, you're about two weeks away from being able to build it!
 

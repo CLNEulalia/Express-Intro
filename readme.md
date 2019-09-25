@@ -352,6 +352,12 @@ Finally we should update our index view to reflect the same strings we had befor
 
 Start your server back up using `nodemon index.js`, and refresh your page to see it render.
 
+## You Do: 99 Bottles of Beer
+
+In the time remaining, work through building out an app for the song 99 Bottles of Beer.
+
+The instructions for this exercise can be found [here](https://git.generalassemb.ly/seir-826/99_bottles_express).
+
 ## Introducing Middleware
 
 The third major feature that Express provides is Middleware.
@@ -473,12 +479,6 @@ And to our view in `index.hbs`:
 ```html
 <h1>Hello {{name}}</h1>
 ```
-
-## You Do: 99 Bottles of Beer
-
-In the time remaining, work through building out an app for the song 99 Bottles of Beer.
-
-The instructions for this exercise can be found [here](https://git.generalassemb.ly/dc-wdi-node-express/99_bottles_express).
 
 ## Closing
 

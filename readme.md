@@ -4,16 +4,14 @@
 
 Today is a big day in SEI! We've build front-end applications using our knowledge and expertise of HTML, CSS and JavaScript. Over the next few weeks we're going to venture in to new territory: building full-stack applications!
 
-The framework we're going to learn for building full-stack applications is called Express. We're going to use it to build feature-rich applications, like the ones you often use: Spotify, Facebook, Twitter, etc. We'll learn how these applications are able to handle requests from users, save data to a database and then process that data before displaying it to the users. If you have a startup idea or an idea for an application, you're about two weeks away from being able to build it!
-
-Before we get to that, let's learn a little more about how the internet works and how Express fits in to building full-stack applications.
+The framework we'll be using in this unit is called ExpressJS (Express). Express runs on NodeJS and provides us with some help in building out fullstack applications and APIs.
 
 ## Objectives
 
 By the end of this lesson, developers should be able to:
 
 - Explain and understand the request-response cycle
-- Discuss how the internet works including:
+- Discuss how the Web works including:
   - Browser requests
   - Status codes
   - HTTP methods and REST
@@ -21,29 +19,23 @@ By the end of this lesson, developers should be able to:
 
 ## Introduction
 
-Express is a framework for building web applications.
+Express is a framework for building web applications. In software development, frameworks include support programs, compilers, code libraries, tool sets, and application programming interfaces (APIs) that bring together all the different components to enable development of a project or system. There are lots of different kinds of frameworks for different kinds of tasks.  Express helps us build applications on NodeJS for the World Wide Web (Web).
 
-What does that mean?
+## How does the Web Work
 
-In development, a framework is a collection of tools, patterns, and conventions that let you perform some task quickly and efficiently. There are lots of different kinds of frameworks for different kinds of tasks. There are frameworks for building command line applications, frameworks for deploying applications to the cloud, and frameworks for running tests against an application to make sure everything is working as it's supposed to.
-
-Express is a framework for building web applications, meaning it's a set of tools, patterns, and conventions for building applications for the internet. It works within the confines of the internet so that when you navigate to a URL in your browser, an app built with Express can handle that URL and send you some response (like an HTML file).
-
-## How does the Internet Work
-
-Before we can build our first full-stack application, we need to discuss how the internet works. Once we know a little bit about how the internet works, we can start to think about how Express (our back-end) fits in with our front-end.
+Before we can build our first full-stack application, we need to discuss how the Web works. Once we know a little bit about how the Web works, we can start to think about how Express (our back-end) fits in with our front-end.
 
 ### Client-Server
 
-The internet follows a model of communication called `client-server`. Your browser is the `client`, used for navigating and interacting with the web. While our browsers exist on our computers or phones, the internet does not! Our browsers are portals to the internet. The other side of the equation is the `server` - a computer somewhere that stores and *serves* webpages.
+The Web follows a model of communication called `client-server`. In the context of the Web, our browsers serve as the `client`. The other side of the equation is the `server` - a computer or application somewhere that responds to the requests from our browser.
 
-![Client-Server](./assets/client-server.png)
+![Client-Server](https://media.git.generalassemb.ly/user/17300/files/8d5a2c80-4670-11ea-8a29-610723d36c34)
 
-The client and server communicate using `http` and the `request-response` cycle.
+The client and server communicate using Hypertext Transfer Protocol (HTTP) and the `request-response` cycle.
 
 ### HTTP
 
-HTTP stands for **Hyper-Text Transfer Protocol**. If the client and server communicate, then HTTP is the structure of that communication. HTTP dictates how the client requests information from a server and how the server responds. Each message is similarly formatted - so you can think of them as like electronic telegrams.
+HTTP is a **protocal** which establishes the rules for communication over the Web. HTTP dictates how the client requests information from a server and how the server responds. Each message is similarly formatted - so you can think of them as like electronic telegrams.
 
 Requests always have these three parts:
 
@@ -57,7 +49,11 @@ Responses in turn always have these three parts:
 1. Response header (additional information about the response)
 1. Body message (optional - an html document, JSON, XML)
 
-Clients make requests to a location (called a URL) using a method. There are 10 possible HTTP methods, but only 5 that are important:
+Clients make requests to a location (called a URL) using a method.
+
+<img width="1569" alt="url" src="https://media.git.generalassemb.ly/user/17300/files/63086f00-4670-11ea-94be-9ba3acdb30f1">
+
+There are 10 possible HTTP methods, but the 5 that we'll be focused on are:
 
 | Method Name | Description |
 | --- | --- |
@@ -67,9 +63,17 @@ Clients make requests to a location (called a URL) using a method. There are 10 
 | PATCH | Used for updating data on the server. |
 | DELETE | Used for deleting data from the server. |
 
-Browsers have only implemented GET and POST, the rest we need to do using JavaScript or find some kind of work-around.
+When the server receives a request, it processes the message and then sends a response. The server always sends a response, though sometimes that response is just to tell the client that there was an error.
 
-When the server receives a request, it processes the message and then sends a response. The server always sends a response, though sometimes that response is just to tell the client that there was an error. Generally, the response will be an HTML document.
+The status codes are also defined by the protocol:
+
+| Status Code | Description | Example
+| --- | --- | --- |
+| 1xx | Informational | 101 Continue |
+| 2xx | OK | 201 Created |
+| 3xx | Redirection | 301 Moved Permanently |
+| 4xx | Client Errors | 404 Not Found |
+| 5xx | Server Errors | 500 Internal Server Error |
 
 #### How does it actually work
 
@@ -77,41 +81,21 @@ When you type a URL in the navigation bar of your browser, you make a GET reques
 
 When you click on a link, you're making a GET request to a URL, just like when you type the URL in the navigation bar of your browser. The server receives the request and sends a response with a new HTML document for you.
 
-When you submit a form, you make a POST request to a URL defined in the `action` attribute of the `<form>` element. The fields in the form become the request body. The server processes the request (typically saving the request body to a database) and then sends a response.
+When you submit a form, you make a POST request.  Data from the form is sent as part of the request body. The server processes the request (perhaps saving the request body to a database) and then sends a response.
 
-### Why do we care
+### Modern Web Applications
 
-When the internet was first created, you would request a document that already existed (in full) on the server. So when you typed in `http://www.timberners-lee.com`, you received an HTML document on Tim's server. If you wanted to see the about page on Tim's website, you would navigate to `http://www.timberners-lee.com/about.html`. The important thing to note is that someone wrote those HTML pages in full and by hand.
+When the Web was first created, you would request a document that already existed on the server. So when you typed in `http://www.timberners-lee.com`, you received an HTML document on Tim's server. If you wanted to see the about page on Tim's website, you would navigate to `http://www.timberners-lee.com/about.html`. The important thing to note is that someone wrote those HTML pages in full and by hand.
 
-That worked well when the internet was just used for sharing scientific documents. Back then, websites weren't backed by databases and didn't need to dynamically retrieve content like they do now.
-
-Imagine you have a website for your cats. Each of your 10 cats has a page on the site:
-
-- `www.cat-astrophy.com/whiskers.html`
-- `www.cat-astrophy.com/mr-fuzzy-pants.html`
-- `www.cat-astrophy.com/purrrasaurus-rex.html`
-- `www.cat-astrophy.com/walter.html`
-- ...
-
-You would have to make a full HTML document for each page. None of the HTML would change from page to page, but the information inside of that HTML would - because it was unique to each cat.
-
-What a load of work! We don't have time for that! We're programmers!
+That worked well when the Web was just used for sharing scientific documents, but imagine how different the web would be if you had to create and maintain a separate HTML document for every page in your web app! What a load of work! We don't have time for that! We're programmers!
 
 > True story: this is why PHP was created.
 
-Instead of writing all that HTML by hand, lets build and use tools that make it so we can dynamically retrieve content and "fill in" an HTML document like a template. That is exactly what Express and any other web framework does!
-
-When we use Express, we don't need to have a `whiskers.html` file on our server - we just need to have all our information about whiskers in our database. Then when someone makes a GET request to `ww.cat-astrohpy.com/whiskers`, our server-side application (built with Express) will see that the request contains `whiskers` inside of it, pull the data about whiskers from the database and dynamically render and send an HTML document with that data.
-
-So much easier!
+Instead of writing all that HTML by hand, we send data to the client or dynamically generate an HTML document from a template and send that document using Express and other web frameworks!
 
 ## Express
 
-Express is a minimalistic web framework. Compared to web frameworks like Django and Ruby on Rails, Express is tiny. But it was intentionally designed that way. Throughout Express' history and development, the core of the web framework has gotten smaller as more and more functionality is spun-off into separate packages.
-
-Express feels "close to the wire" - i.e. you will be building out the functionality that you want. This minimalism comes with some trade-offs. On the one hand, you won't have unnecessarily complicated code in your application or things that you don't need. It also means you'll be responsible for building out everything you do need.
-
-Additionally, Express is very unopinionated: it doesn't really care how you structure your app, for instance, and doesn't provide any guidance on how to do so. That makes it extremely flexible and practical for a lot of different types and sizes of applications; it also means that you have to figure out the structure yourself. PayPal uses Express, but built a more opinionated framework (Kraken.js) on top of it to give its developers more structure.
+Express is a minimalistic web framework. Compared to web frameworks like Django and Ruby on Rails, Express is tiny. It was intentionally designed that way. It's both minimal and unopinionated.  This minimalism comes with some trade-offs. On the one hand, you it's extremely flexible and doesn't unnecessarily bloat your code with things that you don't need. It also means you'll be responsible for building out everything you do need.
 
 At it's core, Express is meant to be a very light abstraction over the native Node HTTP modules as a way of giving developers a few convenient features:
 
@@ -145,7 +129,7 @@ app.listen(4000, () => {
 
 To start up our server, we just need to execute this file with node:
 
-```sh  
+```sh
 node index.js
 ```
 
@@ -290,8 +274,8 @@ If we visit `http://localhost:4000/Whiskers`, then the HTML we would get back wo
 ```html
 <h1>Hello Whiskers</h1>
 ```
-  
-Let's set up our Express app to use Handlebars. We first need to install it as a project dependency: 
+
+Let's set up our Express app to use Handlebars. We first need to install it as a project dependency:
 
 ```bash
 $ npm install hbs
@@ -412,31 +396,18 @@ How can we greet the name submitted in the form?
 
 That's where middleware comes in...
 
-By default, Express does not handle information posted from a form. in order to get form or JSON data in a `POST` request, we need to install middleware – code that runs in between receiving the request and sending the response.
-
-The specific middleware we need to achieve this functionality is called **body-parser**. It used to be included to Express by default, but was removed and made into its own module to make Express more minimal.
-
-Install body-parser in the terminal:
-
-```bash
-$ npm install body-parser
-```
-
-Then require body-parser in `index.js`:
+By default, Express does not handle information posted from a form. in order to get form or JSON data in a `POST` request, we need to tell it to use some middleware – code that runs in between receiving the request and sending the response.
 
 ```js
-// configure app to use body parser
-// below your other require() statements
-const bodyParser = require("body-parser")
-
-// below require and before any routes
-// tell Express to use bodyParser
-app.use(bodyParser.urlencoded({ extended: true })) // handles form submissions
+// add `express.json` middleware which will parse JSON requests into
+// JS objects before they reach the route files.
+// The method `.use` sets up middleware for the Express application
+app.use(express.json())
+// this parses requests that may use a different content type
+app.use(express.urlencoded({ extended: true }))
 ```
 
-> Only the `urlencoded` body-parser middleware is necessary to get this form working.
-
-Another thing to note is that, in Express, `req.params` holds just path params. Anything handled by the bodyParser (JSON or form bodies) will be held in `req.body`.
+Another thing to note is that, in Express, `req.params` holds just path params. Anything handled by the parser will be held in `req.body`.
 
 So we change the final post request in `index.js` to:
 
@@ -483,4 +454,3 @@ And to our view in `index.hbs`:
 ## Closing
 
 Our first step is to get a basic understanding of Express, how it works and what it does for us. Over the next few lessons, we'll learn how to build larger applications using Express.
-

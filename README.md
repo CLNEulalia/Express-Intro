@@ -153,7 +153,7 @@ Our app is running and we're able to visit it in the browser. But we're missing 
 
 The first key feature that Express provides is simple and easy routing.
 
-A *route* is a path and an HTTP method. The path will come from the URL, so if we visit `http://www.cat-astrophy.com/whiskers` the path will be `/whiskers`. The HTTP method will be the method we want to accept: `GET`, `POST`, `PUT`, or `DELETE`.
+A *route* is a URI (path) and an HTTP method. The path is part of the URL, so if we visit `http://www.cat-astrophy.com/whiskers` the URI will be `/whiskers`. The HTTP method will be the method we want to accept: `GET`, `POST`, `PUT`, or `DELETE`.
 
 Express contains a function for each HTTP method which in turn accepts a path as the first argument then some number of callback functions. We'll start with just one callback function.
 
@@ -180,7 +180,7 @@ Let's break down the syntax here.
 The first argument that `get()` takes is the `path`. This one is set to the root of wherever our server is listening (which is `http://localhost:4000`).
 
 ```js
-  app.get("/", (request, response) => {})
+app.get('/', (request, response) => {})
 ```
 
 The second argument that `get()` takes is a function. It's how we tell express what we want to do when the server receives a GET request at the root `'/'` url. The preferred syntax is to use arrow functions here, to keep it concise.
@@ -190,12 +190,12 @@ In the example above, the callback function is given two arguments: the first re
 **We always have to send a response**. We do that by using the response variable that we've declared in the callback. So we end up with a working route!
 
 ```js
-  app.get("/", (request, response) => {
-    response.send("Hello World")
-  })
+app.get('/', (request, response) => {
+  response.send('Hello World')
+})
 ```
 
-We've added a route and a handler for requests to the `"/"` route. In this case, we're sending the string `"Hello World"` as the response. Let's see if this takes effect in the browser:
+We've added a route and a handler for requests to the `'/'` route. In this case, we're sending the string `'Hello World'` as the response. Let's see if this takes effect in the browser:
 
 ```
 Cannot GET /
@@ -209,12 +209,10 @@ Hello World
 
 Constantly needing to restart the server will get very tedious, very quickly. Instead, we can use the `nodemon` module to run our server. Instead of requiring `nodemon` in our code, we use `nodemon` from the command line. Then, `nodemon` will restart our server for us whenever a file is changed.
 
-To check if you have nodemon, run: `nodemon -v`.
+Install the nodemon package with `npm i nodemon --save`, or with the shorthand `npm i nodemon --D`.  The `--save` or `-D` will install nodemon as a **devDependency** in our `package.json`. That means it will only be used during development, not during production deployments. 
 
-**If you do not already have nodemon installed**
-
-> In the terminal, run: `npm install --global nodemon`
-
+> You can install nodemon globally if you do not have it with `npm install --global nodemon`
+>
 > When using the `--global` flag (or `-g` for short), we're specifying that `nodemon` will be installed "globally" so we can utilize `nodemon` across all of our node applications (and also that it is not included in our project dependencies).
 
 We start up our application a bit differently now:
@@ -232,7 +230,7 @@ Route parameters give us flexibility when writing routes in Express.
 Let's update `index.js` to include:
 
 ```js
-app.get("/:name", (req, res) => {
+app.get('/:name', (req, res) => {
   res.send(`Hello ${req.params.name}`)
 })
 ```
@@ -241,7 +239,7 @@ app.get("/:name", (req, res) => {
 
 Our route has changed! What is different?
 
-Route parameters are named sections of our path, they are placeholders (similar to variables or parameters) that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.
+Route parameters are named segments of our URI, they are placeholders (like variables) that capture values at their location in a URL. These values are held in the `req.params` object and can be used to deliver custom responses to an HTTP request.  
 
 Now if we visit `http://localhost:4000/Whiskers`, we should see:
 
@@ -249,7 +247,9 @@ Now if we visit `http://localhost:4000/Whiskers`, we should see:
 hello Whiskers
 ```
 
-What do you think we'll see if we visit `http://localhost:4000/Purrasaurus-rex`?
+What do you think we'll see if we visit `http://localhost:4000/Purrasaurus-rex`? 
+
+Where else have we seen these kinds of dynamic segments in routes?
 
 ### Views
 
@@ -284,7 +284,7 @@ $ npm install hbs
 In `index.js`, let's [configure our express app](https://expressjs.com/en/guide/using-template-engines.html) to use Handlebars as its "view engine". Put this below the requires, but above the routes.
 
 ```js
-app.set("view engine", "hbs")
+app.set('view engine', 'hbs')
 ```
 
 Let's go ahead and create a directory that will contain our templates in the root directory of the Hello World application. In the terminal:
@@ -351,13 +351,14 @@ Middleware is just a function that transforms the `request` and/or the `response
 - working with form data
 - authentication
 - logging
+- error handling
 
 Let's make it so our Hello World app takes someone's name through a form that a user submits, instead of through a route parameter.
 
 We need a new route and a new view with a form. In `index.js`:
 
 ```js
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.render("welcome")
 })
 ```
@@ -385,8 +386,8 @@ Express doesn't have a way to handle this request! We only set up a route for `G
 
 ```js
 // index.js
-app.post("/", (req, res) => {
-  res.send("Hello there!")
+app.post('/', (req, res) => {
+  res.send('Hello there!')
 })
 ```
 
@@ -396,7 +397,7 @@ How can we greet the name submitted in the form?
 
 That's where middleware comes in...
 
-By default, Express does not handle information posted from a form. in order to get form or JSON data in a `POST` request, we need to tell it to use some middleware – code that runs in between receiving the request and sending the response.
+By default, Express does not handle information posted from a form. In order to get form or JSON data in a `POST` request, we need to tell it to use some middleware – code that runs in between receiving the request and sending the response.
 
 ```js
 // add `express.json` middleware which will parse JSON requests into
@@ -412,7 +413,7 @@ Another thing to note is that, in Express, `req.params` holds just path params. 
 So we change the final post request in `index.js` to:
 
 ```js
-app.post("/", (req, res) => {
+app.post('/', (req, res) => {
   res.send(`hello ${req.body.name}`)
 })
 ```
@@ -438,8 +439,8 @@ app.post("/", (req, res) => {
 Once we've confirmed that is working, we'll integrate the name into our index template:
 
 ```js
-app.post("/", (req, res) => {
-  res.render("index", {
+app.post('/', (req, res) => {
+  res.render('index', {
     name: req.body.firstName,
   })
 })

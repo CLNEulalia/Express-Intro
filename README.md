@@ -110,8 +110,8 @@ These are the core features of Express.
 
 1. Create a new directory called "express-hello-world" in your sandbox.
 1. Change into the new directory
-1. Run npm init. Press enter a bunch of times to accept all the default values.
-1. Type npm install express.
+1. Run `npm init -y`.
+1. Type `npm install express` or the shorthand version of `npm i express`.
 1. Work through the rest of this lesson
 
 ### Getting Started
@@ -160,8 +160,8 @@ Express contains a function for each HTTP method which in turn accepts a path as
 Let's update `index.js`. Add this above `app.listen()`
 
 ```js
-app.get("/", (request, response) => {
-  response.send("Hello World")
+app.get('/', (request, response) => {
+  response.send('Hello World')
 })
 ```
 
@@ -174,7 +174,7 @@ Let's break down the syntax here.
 `app` is the variable we've declared above. It's an `instance` of the express server. `get()` is a function that tells express what `http method` to listen for.
 
 ```js
-  app.get("/")
+  app.get('/')
 ```
 
 The first argument that `get()` takes is the `path`. This one is set to the root of wherever our server is listening (which is `http://localhost:4000`).
@@ -183,7 +183,7 @@ The first argument that `get()` takes is the `path`. This one is set to the root
   app.get("/", (request, response) => {})
 ```
 
-The second argument that `get()` takes is a function. It's how we tell express what we want to do when the server receives a GET request at the root `"/"` url. The preferred syntax is to use arrow functions here, to keep it concise.
+The second argument that `get()` takes is a function. It's how we tell express what we want to do when the server receives a GET request at the root `'/'` url. The preferred syntax is to use arrow functions here, to keep it concise.
 
 In the example above, the callback function is given two arguments: the first represents the HTTP request object and the second represents the HTTP response object.
 

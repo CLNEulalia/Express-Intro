@@ -340,7 +340,7 @@ Start your server back up using `nodemon index.js`, and refresh your page to see
 
 In the time remaining, work through building out an app for the song 99 Bottles of Beer.
 
-The instructions for this exercise can be found [here](https://git.generalassemb.ly/seir-826/99_bottles_express).
+The instructions for this exercise can be found [here](https://git.generalassemb.ly/seir-323/99_bottles_express).
 
 ## Introducing Middleware
 

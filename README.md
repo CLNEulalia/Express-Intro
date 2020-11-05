@@ -35,7 +35,7 @@ The client and server communicate using Hypertext Transfer Protocol (HTTP) and t
 
 ### HTTP
 
-HTTP is a **protocal** which establishes the rules for communication over the Web. HTTP dictates how the client requests information from a server and how the server responds. Each message is similarly formatted - so you can think of them as like electronic telegrams.
+HTTP is a **protocol** which establishes the rules for communication over the Web. HTTP dictates how the client requests information from a server and how the server responds. Each message is similarly formatted - so you can think of them as like electronic telegrams.
 
 Requests always have these three parts:
 

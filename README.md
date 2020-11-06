@@ -346,7 +346,11 @@ The instructions for this exercise can be found [here](https://git.generalassemb
 
 The third major feature that Express provides is Middleware.
 
-Middleware is just a function that transforms the `request` and/or the `response` object. Middleware functions get called in a series and each updates or transforms the `request` and/or the `response` object before passing them on to the next function in the series. Middleware is what makes it so we can build complex applications with Express - we'll use middleware for a lot of things, including:
+Middleware is just a function that transforms the `request` and/or the `response` object. Middleware functions get called in a series and each updates or transforms the `request` and/or the `response` object before passing them on to the next function in the series. 
+
+![Diagram showing how middleware runs between the request and response.](https://media.git.generalassemb.ly/user/17300/files/332c3480-2011-11eb-8a70-d0062f78183e)
+
+Middleware is what makes it so we can build complex applications with Express - we'll use middleware for a lot of things, including:
 
 - working with form data
 - authentication
